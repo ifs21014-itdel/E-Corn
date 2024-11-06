@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 export default function Edukasi() {
     return (
       <div className="container mx-auto p-10">
@@ -39,9 +40,10 @@ export default function Edukasi() {
               <p className="text-gray-600 mb-4">
                 Deskripsi singkat mengenai artikel yang menjelaskan informasi seputar pertanian jagung dan pemanfaatannya.
               </p>
-              <button className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition">
+              <Link to="/detail-edukasi" className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition">
                 Baca Selengkapnya
-              </button>
+                </Link>
+
             </div>
           ))}
         </div>

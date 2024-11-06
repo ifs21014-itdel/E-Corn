@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Edukasi from "./pages/user/Edukasi";
 import Login from "./pages/Auth/Login";
+import DetailEdukasi from "./pages/user/DetailEdukasi";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,14 @@ const router = createBrowserRouter([
     element :<>
       <Navbar/>
       <Edukasi/>
+      <Footer/>
+    </>
+  },
+  {
+    path:"/detail-edukasi",
+    element :<>
+      <Navbar/>
+      <DetailEdukasi/>
       <Footer/>
     </>
   },
