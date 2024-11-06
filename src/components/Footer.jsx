@@ -4,7 +4,7 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin, FaYoutube } from 'reac
 
 const Footer = () => {
   return (
-    <footer className="bg-green-800 text-white py-8">
+    <footer className="bg-[#DBF1AD] text-white py-8">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-4 px-4">
         
         {/* Logo dan Alamat */}

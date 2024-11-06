@@ -8,12 +8,14 @@ import "./index.css";
 import Home from "./pages/user/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Edukasi from "./pages/user/Edukasi";
+import Login from "./pages/Auth/Login";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element:<>
-    <Navbar/>  
+    <Navbar/> 
     </> 
   },{
     path:"/home",
@@ -21,6 +23,22 @@ const router = createBrowserRouter([
       <Navbar/>
       <Home/>
       <Footer/>
+    </>
+  },
+  {
+    path:"/edukasi",
+    element :<>
+      <Navbar/>
+      <Edukasi/>
+      <Footer/>
+    </>
+  },
+  {
+    path:"/login",
+    element :<>
+    
+      <Login/>
+     
     </>
   }
 
