@@ -2,14 +2,23 @@ import React from "react";
 
 export default function TentangKami() {
   return (
-    <div className="container my-5">
-      {/* Bagian Atas */}
+    <div className="container mx-auto p-20">
+      {/* Bagian Judul "Tentang Kami" di luar warna hijau */}
+      <h2 className="text-2xl font-bold text-center mb-4">Tentang Kami</h2>
+
+      {/* Bagian Atas dengan Latar Hijau */}
       <div
         className="bg-green-800 text-white rounded-lg p-5 mb-5 text-center mx-auto"
         style={{ maxWidth: "80%" }} // Set lebar maksimum dan center-kan
       >
-        <h2 className="text-2xl font-bold mb-4">Tentang Kami</h2>
-        <div className="d-flex justify-content-center gap-3 mb-4">
+        <div
+          className="d-flex justify-content-center gap-3 mb-4"
+          style={{
+            display: "flex",         // Gunakan display flex untuk tata letak gambar
+            justifyContent: "center", // Pastikan gambar berada di tengah
+            gap: "10px",              // Jarak antar gambar
+          }}
+        >
           {/* Galeri Gambar */}
           {[
             "/path/to/image1.jpg",
@@ -23,10 +32,10 @@ export default function TentangKami() {
               alt={`Corn Image ${index + 1}`}
               className="img-thumbnail rounded mx-1"
               style={{
-                width: "100px",
+                width: "100px",           // Ukuran gambar 100x100px
                 height: "100px",
-                objectFit: "cover",
-                borderRadius: "10px",
+                objectFit: "cover",       // Memastikan gambar tidak terdistorsi
+                borderRadius: "10px",     // Membulatkan sudut gambar
               }}
             />
           ))}
