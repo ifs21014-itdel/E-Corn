@@ -35,7 +35,7 @@ const BeritaUtama = () => (
           ekspor pakan ternak Sumatera mendukung program Gratieks (Gerakan Tiga
           Kali Lipat Ekspor) yang digagas Menteri Pertanian Syahrul Yasin Limpo.
         </p>
-        <button className="btn btn-warning mt-5 px-4 py-2 rounded">
+        <button className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition">
           Lihat
         </button>
       </div>
@@ -72,7 +72,7 @@ const DaftarBerita = () => (
               Tiga Kali Lipat Ekspor) yang digagas Menteri Pertanian Syahrul
               Yasin Limpo.
             </p>
-            <button className="btn btn-warning w-full py-2 rounded">
+            <button className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition">
               Lihat
             </button>
           </div>
