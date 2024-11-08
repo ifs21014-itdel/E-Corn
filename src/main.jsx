@@ -9,6 +9,7 @@ import Edukasi from "./pages/user/Edukasi";
 import Berita from "./pages/user/Berita";
 import Login from "./pages/Auth/Login";
 import DetailEdukasi from "./pages/user/DetailEdukasi";
+import DetailBerita from "./pages/user/DetailBerita";
 import TentangKami from "./pages/user/TentangKami";
 
 const router = createBrowserRouter([
@@ -56,6 +57,16 @@ const router = createBrowserRouter([
       <>
         <Navbar />
         <Berita />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/detail-berita",
+    element: (
+      <>
+        <Navbar />
+        <DetailBerita />
         <Footer />
       </>
     ),

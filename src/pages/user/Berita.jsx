@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Berita() {
   return (
@@ -35,9 +36,12 @@ const BeritaUtama = () => (
           ekspor pakan ternak Sumatera mendukung program Gratieks (Gerakan Tiga
           Kali Lipat Ekspor) yang digagas Menteri Pertanian Syahrul Yasin Limpo.
         </p>
-        <button className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition">
+        <Link
+          to="/detail-berita"
+          className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition"
+        >
           Lihat
-        </button>
+        </Link>
       </div>
 
       {/* Kolom kanan gambar */}
@@ -72,9 +76,12 @@ const DaftarBerita = () => (
               Tiga Kali Lipat Ekspor) yang digagas Menteri Pertanian Syahrul
               Yasin Limpo.
             </p>
-            <button className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition">
+            <Link
+              to="/detail-berita"
+              className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition"
+            >
               Lihat
-            </button>
+            </Link>
           </div>
         </div>
       </div>
