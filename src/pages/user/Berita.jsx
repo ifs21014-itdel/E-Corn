@@ -1,3 +1,5 @@
+import logo from "../../assets/logo.png";
+
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -47,7 +49,7 @@ const BeritaUtama = () => (
       {/* Kolom kanan gambar */}
       <div className="w-full lg:w-1/2">
         <img
-          src="/path/to/main-image.jpg"
+          src={logo}
           alt="Berita Utama"
           className="w-full h-auto rounded-lg object-cover"
         />
@@ -62,7 +64,7 @@ const DaftarBerita = () => (
       <div className="col" key={index}>
         <div className="card h-full shadow-lg rounded-lg transition-transform transform hover:scale-105">
           <img
-            src="/path/to/news-image.jpg"
+            src={logo}
             alt={`Berita ${index + 1}`}
             className="w-full h-48 rounded-t-lg object-cover"
           />

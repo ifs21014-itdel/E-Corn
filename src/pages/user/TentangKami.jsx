@@ -1,3 +1,5 @@
+import logo from "../../assets/logo.png";
+
 import React from "react";
 
 export default function TentangKami() {
@@ -28,7 +30,7 @@ export default function TentangKami() {
           ].map((src, index) => (
             <img
               key={index}
-              src={src}
+              src={logo}
               alt={`Corn Image ${index + 1}`}
               className="img-thumbnail rounded mx-1"
               style={{
@@ -57,7 +59,7 @@ export default function TentangKami() {
       {/* Bagian Bawah */}
       <div className="text-center">
         <img
-          src="/path/to/largeImage.jpg"
+          src={logo}
           alt="Large Corn Image"
           className="img-fluid rounded mb-4"
           style={{ maxWidth: "80%", height: "auto" }}
