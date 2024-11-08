@@ -23,6 +23,9 @@ export const Navbar = () => {
             <Link to="/edukasi" className="hover:text-gray-900">Edukasi</Link>
           </li>
           <li>
+            <Link to="/berita" className="hover:text-gray-900">Berita</Link>
+          </li>
+          <li>
             <Link to="/komunitas" className="hover:text-gray-900">Komunitas</Link>
           </li>
           <li>
@@ -51,6 +54,7 @@ export const Navbar = () => {
         <div className="md:hidden bg-green-600 text-white font-bold rounded-lg shadow-lg mt-2 mx-4 p-4 space-y-4">
           <Link to="/home" className="block hover:bg-green-700 p-2 rounded">Beranda</Link>
           <Link to="/edukasi" className="block hover:bg-green-700 p-2 rounded">Edukasi</Link>
+          <Link to="/berita" className="block hover:bg-green-700 p-2 rounded">Berita</Link>
           <Link to="/komunitas" className="block hover:bg-green-700 p-2 rounded">Komunitas</Link>
           <Link to="/tentang-kami" className="block hover:bg-green-700 p-2 rounded">Tentang Kami</Link>
           <Link to="/login" className="block bg-white text-green-700 font-bold p-2 rounded hover:bg-gray-200 text-center">Masuk</Link>
