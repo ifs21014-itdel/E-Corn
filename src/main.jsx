@@ -7,6 +7,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Edukasi from "./pages/user/Edukasi";
 import Berita from "./pages/user/Berita";
+import Komunitas from "./pages/user/Komunitas";
+import DetailDiskusi from "./pages/user/DetailDiskusi";
 import Login from "./pages/Auth/Login";
 import DetailEdukasi from "./pages/user/DetailEdukasi";
 import DetailBerita from "./pages/user/DetailBerita";
@@ -47,6 +49,27 @@ const router = createBrowserRouter([
       <>
         <Navbar />
         <DetailEdukasi />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/komunitas",
+    element: (
+      <>
+        <Navbar />
+        <Komunitas />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    // Updated to accept a dynamic parameter for the discussion ID
+    path: "/komunitas/:id",
+    element: (
+      <>
+        <Navbar />
+        <DetailDiskusi />
         <Footer />
       </>
     ),
