@@ -1,17 +1,17 @@
 import logo from "../../assets/logo.png";
 import google from "../../assets/google.png";
 import facebook from "../../assets/facebook.png";
+import pic10 from "../../assets/pic10.png"; // Update with actual path if needed
 
 export default function Login() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#2C4001]">
-      <div className="w-full max-w-md bg-[#D9E4C7] rounded-lg shadow-lg flex overflow-hidden">
+      <div className="w-full max-w-2xl bg-[#D9E4C7] rounded-lg shadow-lg flex overflow-hidden">
         {/* Left side (Login form) */}
-        <div className="p-8 w-1/2">
-          <div className="flex justify-center mb-6">
-            <img src={logo} alt="E-Corn Logo" className="w-16 h-16" />
-          </div>
-          <h2 className="text-xl font-bold text-black mb-4">Selamat Datang</h2>
+        <div className="p-8 w-1/2 flex flex-col justify-center">
+          <h2 className="text-2xl font-bold text-black mb-6 text-center">
+            Login
+          </h2>
           <form className="space-y-4">
             <input
               type="text"
@@ -23,18 +23,21 @@ export default function Login() {
               placeholder="Password"
               className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none"
             />
-            <div className="text-right text-sm text-gray-500 mb-4">
-              <a href="#" className="hover:underline">
+
+            {/* "Lupa password?" link directly below the password field, aligned to the left */}
+            <div className="text-sm text-gray-500 mt-1">
+              <a href="#" className="underline hover:text-blue-500">
                 Lupa password?
               </a>
             </div>
-            <button className="w-full bg-[#2C4001] text-white py-2 rounded-full font-bold hover:bg-green-800 transition">
-              Masuk
+
+            <button className="w-full bg-[#2C4001] text-white py-2 rounded-full font-bold hover:bg-green-800 transition mt-4">
+              Login
             </button>
           </form>
 
-          <div className="flex items-center justify-center mt-4 space-x-2 text-gray-500">
-            <span>or sign with</span>
+          <div className="flex items-center justify-center mt-4 text-gray-500">
+            <span>or sign in with</span>
           </div>
           <div className="flex items-center justify-center mt-2 space-x-4">
             <button>
@@ -55,10 +58,12 @@ export default function Login() {
 
         {/* Right side (Background image) */}
         <div
-          className="w-1/2 bg-cover"
-          style={{ backgroundImage: "url('/path/to/background-image.jpg')" }}
+          className="w-1/2 bg-cover bg-center relative"
+          style={{ backgroundImage: `url(${pic10})` }}
         >
-          {/* Add a placeholder for the image */}
+          <div className="absolute top-4 left-4">
+            <img src={logo} alt="E-Corn Logo" className="w-16 h-16" />
+          </div>
         </div>
       </div>
     </div>
