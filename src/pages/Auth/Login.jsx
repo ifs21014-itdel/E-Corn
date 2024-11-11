@@ -1,7 +1,7 @@
 import logo from "../../assets/logo.png";
 import google from "../../assets/google.png";
 import facebook from "../../assets/facebook.png";
-import pic10 from "../../assets/pic10.png"; // Update with actual path if needed
+import jagung from "../../assets/jagung.jpeg"; 
 
 export default function Login() {
   return (
@@ -59,7 +59,7 @@ export default function Login() {
         {/* Right side (Background image) */}
         <div
           className="w-1/2 bg-cover bg-center relative"
-          style={{ backgroundImage: `url(${pic10})` }}
+          style={{ backgroundImage: `url(${jagung})` }}
         >
           <div className="absolute top-4 left-4">
             <img src={logo} alt="E-Corn Logo" className="w-16 h-16" />
