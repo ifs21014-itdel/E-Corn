@@ -1,6 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from '../../assets/logo.png';
+import pic1 from '../../assets/pic1.png';
+import pic2 from '../../assets/pic2.png';
+import pic3 from '../../assets/pic3.png';
+import pic4 from '../../assets/pic4.png';
+import pic5 from '../../assets/pic5.png';
+import pic6 from '../../assets/pic6.png';
+import pic7 from '../../assets/pic7.png';
+import pic8 from '../../assets/pic8.png';
+import pic9 from '../../assets/pic9.png';
 import Komunitas from "./Komunitas"; // Import komponen Komunitas
 
 export default function Home() {
@@ -19,7 +28,7 @@ export default function Home() {
           </button>
         </div>
         <div className="md:w-1/2 flex justify-center">
-          <img src={logo} alt="Hero" className="w-full max-w-sm rounded-md shadow-md" />
+          <img src={pic1} alt="Hero" className="w-full max-w-sm rounded-md shadow-md" />
         </div>
       </section>
 
@@ -32,10 +41,10 @@ export default function Home() {
             <p>Berita terkini mengenai pertanian jagung di Sumatera Utara</p>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <img src={logo} alt="Benefit 1" className="w-full h-32 object-cover rounded-md border-4 border-blue-500" />
-            <img src={logo} alt="Benefit 2" className="w-full h-32 object-cover rounded-md" />
-            <img src={logo} alt="Benefit 3" className="w-full h-32 object-cover rounded-md" />
-            <img src={logo} alt="Benefit 4" className="w-full h-32 object-cover rounded-md" />
+            <img src={pic2} alt="Benefit 1" className="w-full h-32 object-cover rounded-md border-4 border-blue-500" />
+            <img src={pic3} alt="Benefit 2" className="w-full h-32 object-cover rounded-md" />
+            <img src={pic4} alt="Benefit 3" className="w-full h-32 object-cover rounded-md" />
+            <img src={pic5} alt="Benefit 4" className="w-full h-32 object-cover rounded-md" />
           </div>
           <div className="text-left pl-4 space-y-8">
             <p>Forum diskusi untuk saling berdiskusi dengan sesama petani jagung, bagikan tips terbaikmu.</p>
@@ -53,15 +62,15 @@ export default function Home() {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <img src={logo} alt="Education 1" className="w-full h-32 object-cover rounded-md mb-4" />
+            <img src={pic6} alt="Education 1" className="w-full h-32 object-cover rounded-md mb-4" />
             <p>Tongkol Jagung</p>
           </div>
           <div>
-            <img src={logo} alt="Education 2" className="w-full h-32 object-cover rounded-md mb-4" />
+            <img src={pic7} alt="Education 2" className="w-full h-32 object-cover rounded-md mb-4" />
             <p>Daun Jagung</p>
           </div>
           <div>
-            <img src={logo} alt="Education 3" className="w-full h-32 object-cover rounded-md mb-4" />
+            <img src={pic8} alt="Education 3" className="w-full h-32 object-cover rounded-md mb-4" />
             <p>Kulit Jagung</p>
           </div>
         </div>
@@ -71,7 +80,7 @@ export default function Home() {
       <section style={{ backgroundColor: '#2C4001' }} className="text-white p-10 mt-10 rounded-lg min-h-screen">
         <h2 className="text-3xl font-semibold mb-6">Berita</h2>
         <div className="flex flex-col md:flex-row items-center">
-          <img src={logo} alt="News Image" className="w-full md:w-1/3 h-48 object-cover rounded-md mb-4 md:mb-0 md:mr-6" />
+          <img src={pic9} alt="News Image" className="w-full md:w-1/3 h-48 object-cover rounded-md mb-4 md:mb-0 md:mr-6" />
           <div className="md:w-2/3">
             <h3 className="text-2xl font-bold mb-4">
               Sumatera Utara ekspor pakan ternak dari limbah jagung ke Korea Selatan

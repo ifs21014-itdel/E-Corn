@@ -1,3 +1,5 @@
+import logo from '../../assets/logo.png';
+
 export default function Login() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#2C4001]">
@@ -6,7 +8,7 @@ export default function Login() {
           {/* Left side (Login form) */}
           <div className="p-8 w-1/2">
             <div className="flex justify-center mb-6">
-              <img src="/path/to/logo.png" alt="E-Corn Logo" className="w-16 h-16" />
+              <img src={logo} alt="E-Corn Logo" className="w-16 h-16" />
             </div>
             <h2 className="text-xl font-bold text-black mb-4">Selamat Datang</h2>
             <form className="space-y-4">
