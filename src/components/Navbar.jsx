@@ -9,6 +9,11 @@ export const Navbar = () => {
   // Fungsi untuk menentukan apakah link aktif
   const isActive = (path) => location.pathname === path;
 
+  // Fungsi untuk menutup menu setelah link diklik
+  const handleLinkClick = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div className="navbar fixed w-full transition-all py-4 bg-[#f0f4e3] shadow-md z-50">
       <div className="container mx-auto px-4 flex items-center justify-between">
@@ -107,6 +112,7 @@ export const Navbar = () => {
             className={`block hover:bg-green-700 p-2 rounded ${
               isActive('/home') ? 'bg-green-700' : ''
             }`}
+            onClick={handleLinkClick}
           >
             Beranda
           </Link>
@@ -115,6 +121,7 @@ export const Navbar = () => {
             className={`block hover:bg-green-700 p-2 rounded ${
               isActive('/edukasi') ? 'bg-green-700' : ''
             }`}
+            onClick={handleLinkClick}
           >
             Edukasi
           </Link>
@@ -123,6 +130,7 @@ export const Navbar = () => {
             className={`block hover:bg-green-700 p-2 rounded ${
               isActive('/berita') ? 'bg-green-700' : ''
             }`}
+            onClick={handleLinkClick}
           >
             Berita
           </Link>
@@ -131,6 +139,7 @@ export const Navbar = () => {
             className={`block hover:bg-green-700 p-2 rounded ${
               isActive('/komunitas') ? 'bg-green-700' : ''
             }`}
+            onClick={handleLinkClick}
           >
             Komunitas
           </Link>
@@ -139,12 +148,14 @@ export const Navbar = () => {
             className={`block hover:bg-green-700 p-2 rounded ${
               isActive('/tentang-kami') ? 'bg-green-700' : ''
             }`}
+            onClick={handleLinkClick}
           >
             Tentang Kami
           </Link>
           <Link
             to="/login"
             className="block bg-white text-green-700 font-bold p-2 rounded hover:bg-gray-200 text-center"
+            onClick={handleLinkClick}
           >
             Masuk
           </Link>

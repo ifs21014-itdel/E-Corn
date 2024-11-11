@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
+
 import pic1 from "../../assets/pic1.png";
 import pic2 from "../../assets/pic2.png";
 import pic3 from "../../assets/pic3.png";
@@ -9,7 +9,7 @@ import pic6 from "../../assets/pic6.png";
 import pic7 from "../../assets/pic7.png";
 import pic8 from "../../assets/pic8.png";
 import pic9 from "../../assets/pic9.png";
-import Komunitas from "./Komunitas"; // Import komponen Komunitas
+
 
 export default function Home() {
   return (
@@ -154,15 +154,6 @@ export default function Home() {
       </section>
 
       {/* Discussion Section */}
-      <section className="p-10 mt-10 min-h-screen">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-4 text-center">
-          Diskusi
-        </h2>
-        <p className="text-gray-700 mb-6 text-center">
-          Diskusikan kendalamu, serta bagikan tips terbaikmu kepada para petani
-          lain dan dapatkan informasi terbaru lainnya.
-        </p>
-      </section>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 // DetailDiskusi.jsx
-import React from "react";
+
 import { useParams } from "react-router-dom";
 
 // Define and export DetailDiskusi component only once

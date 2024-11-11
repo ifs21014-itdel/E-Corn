@@ -1,4 +1,4 @@
-import logo from "../../assets/logo.png";
+
 import pic11 from "../../assets/pic11.jpeg";
 
 export default function DetailEdukasi() {
