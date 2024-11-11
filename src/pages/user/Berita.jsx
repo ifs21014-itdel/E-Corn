@@ -1,8 +1,4 @@
-import logo from "../../assets/logo.png";
 import pic9 from "../../assets/pic9.png";
-
-
-import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Berita() {
