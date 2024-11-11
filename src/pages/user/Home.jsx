@@ -1,15 +1,14 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
-import pic1 from "../../assets/pic1.png";
-import pic2 from "../../assets/pic2.png";
-import pic3 from "../../assets/pic3.png";
-import pic4 from "../../assets/pic4.png";
-import pic5 from "../../assets/pic5.png";
-import pic6 from "../../assets/pic6.png";
-import pic7 from "../../assets/pic7.png";
-import pic8 from "../../assets/pic8.png";
-import pic9 from "../../assets/pic9.png";
+import logo from '../../assets/logo.png';
+import pic1 from '../../assets/pic1.png';
+import pic2 from '../../assets/pic2.png';
+import pic3 from '../../assets/pic3.png';
+import pic4 from '../../assets/pic4.png';
+import pic5 from '../../assets/pic5.png';
+import pic6 from '../../assets/pic6.png';
+import pic7 from '../../assets/pic7.png';
+import pic8 from '../../assets/pic8.png';
+import pic9 from '../../assets/pic9.png';
 import Komunitas from "./Komunitas"; // Import komponen Komunitas
 
 export default function Home() {
@@ -144,9 +143,12 @@ export default function Home() {
               ekspor pakan ternak Sumut itu mendukung program Gratieks
               Kementerian Pertanian Syahrul Yasin Limpo.
             </p>
-            <button className="bg-yellow-600 text-white px-6 py-3 rounded-full font-bold hover:bg-yellow-700 transition">
+            <Link
+              to="/detail-berita"
+              className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition"
+            >
               Selengkapnya
-            </button>
+            </Link>
           </div>
         </div>
       </section>

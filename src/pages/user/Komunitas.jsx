@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 
 export default function Komunitas() {
   const [newTitle, setNewTitle] = useState("");
@@ -42,8 +42,9 @@ export default function Komunitas() {
   };
 
   return (
-    <section className="p-10 mt-10 min-h-screen">
-      <h2 className="text-3xl font-semibold text-gray-800 mb-4 text-center">Forum Diskusi</h2>
+    <div className="pt-40">
+      <section className=" min-h-screen">
+      <h2 className="text-3xl font-semibold text-gray-800 mb-4 text-center ">Forum Diskusi</h2>
       <p className="text-gray-700 mb-6 text-center">
         Diskusikan kendalamu, serta bagikan tips terbaikmu kepada para petani lain dan dapatkan informasi terbaru lainnya.
       </p>
@@ -112,5 +113,6 @@ export default function Komunitas() {
         </div>
       )}
     </section>
+    </div>
   );
 }

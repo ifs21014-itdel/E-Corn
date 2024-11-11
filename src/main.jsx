@@ -20,6 +20,8 @@ const router = createBrowserRouter([
     element: (
       <>
         <Navbar />
+        <Home />
+        <Footer />
       </>
     ),
   },
@@ -64,7 +66,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    // Updated to accept a dynamic parameter for the discussion ID
+    
     path: "/komunitas/:id",
     element: (
       <>
