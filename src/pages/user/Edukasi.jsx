@@ -1,5 +1,31 @@
 import logo from "../../assets/logo.png";
+import pic6 from "../../assets/pic6.png";
+import pic7 from "../../assets/pic7.png";
+import pic8 from "../../assets/pic8.png";
+import pic11 from "../../assets/pic11.jpeg";
+import pic12 from "../../assets/pic12.jpeg";
+import pic13 from "../../assets/pic13.jpeg";
+
 import { Link } from "react-router-dom";
+
+const ArticleCard = ({ image, title, description, link }) => (
+  <div className="bg-white p-6 rounded-lg shadow-md">
+    <img
+      src={image}
+      alt="Article"
+      className="w-full h-40 object-cover rounded-md mb-4"
+    />
+    <h4 className="text-lg font-semibold mb-2">{title}</h4>
+    <p className="text-gray-600 mb-4">{description}</p>
+    <Link
+      to={link}
+      className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition"
+    >
+      Baca Selengkapnya
+    </Link>
+  </div>
+);
+
 export default function Edukasi() {
   return (
     <div className="container mx-auto p-10">
@@ -20,7 +46,7 @@ export default function Edukasi() {
         <div className="flex justify-center space-x-6">
           <div className="text-center">
             <img
-              src={logo}
+              src={pic6}
               alt="Tongkol Jagung"
               className="w-40 h-40 object-cover rounded-md"
             />
@@ -30,7 +56,7 @@ export default function Edukasi() {
           </div>
           <div className="text-center">
             <img
-              src={logo}
+              src={pic7}
               alt="Daun Jagung"
               className="w-40 h-40 object-cover rounded-md"
             />
@@ -40,7 +66,7 @@ export default function Edukasi() {
           </div>
           <div className="text-center">
             <img
-              src={logo}
+              src={pic8}
               alt="Kulit Jagung"
               className="w-40 h-40 object-cover rounded-md"
             />
@@ -58,28 +84,42 @@ export default function Edukasi() {
 
       {/* Articles Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {[...Array(6)].map((_, index) => (
-          <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-            <img
-              src={logo}
-              alt="Article"
-              className="w-full h-40 object-cover rounded-md mb-4"
-            />
-            <h4 className="text-lg font-semibold mb-2">
-              Judul Artikel {index + 1}
-            </h4>
-            <p className="text-gray-600 mb-4">
-              Deskripsi singkat mengenai artikel yang menjelaskan informasi
-              seputar pertanian jagung dan pemanfaatannya.
-            </p>
-            <Link
-              to="/detail-edukasi"
-              className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition"
-            >
-              Baca Selengkapnya
-            </Link>
-          </div>
-        ))}
+        <ArticleCard
+          image={pic11}
+          title="Biochar: Solusi Limbah Pertanian untuk Peningkatan Kualitas Tanah"
+          description="Biochar merupakan salah satu solusi berkelanjutan yang semakin populer dalam pengelolaan limbah pertanian. Biochar adalah bahan karbon yang dihasilkan dari pembakaran biomassa organik (seperti sisa-sisa tanaman, kayu, atau limbah pertanian) pada suhu tinggi dalam kondisi minim oksigen."
+          link="/detail-edukasi"
+        />
+        <ArticleCard
+          image={pic12}
+          title="Pengolahan Limbah Jerami jagung Menjadi Pakan Ternak"
+          description="Jerami jagung, yang biasanya dianggap sebagai limbah setelah panen, sebenarnya memiliki potensi besar sebagai sumber pakan ternak. Pengolahan limbah jerami jagung menjadi pakan ternak tidak hanya mengurangi pembormbah bagi petani dan peternak"
+          link="/detail-edukasi"
+        />
+        <ArticleCard
+          image={pic13}
+          title="Biogas dari Limbah Pertanian"
+          description="Limbah pertanian, yang sering kali dianggap sebagai produk sampingan tak berguna, sebenarnya memiliki potensi besar untuk diolah menjadi sumber energi terbarukan, yaitu biogas. Biogas merupakan gas yang dihasilkan dari proses fermentasi anaerobik (tanpa oksigen."
+          link="/detail-edukasi"
+        />
+        <ArticleCard
+          image={pic11}
+          title="Biochar: Solusi Limbah Pertanian untuk Peningkatan Kualitas Tanah"
+          description="Biochar merupakan salah satu solusi berkelanjutan yang semakin populer dalam pengelolaan limbah pertanian. Biochar adalah bahan karbon yang dihasilkan dari pembakaran biomassa organik (seperti sisa-sisa tanaman, kayu, atau limbah pertanian) pada suhu tinggi dalam kondisi minim oksigen."
+          link="/detail-edukasi"
+        />
+        <ArticleCard
+          image={pic12}
+          title="Pengolahan Limbah Jerami jagung Menjadi Pakan Ternak"
+          description="Jerami jagung, yang biasanya dianggap sebagai limbah setelah panen, sebenarnya memiliki potensi besar sebagai sumber pakan ternak. Pengolahan limbah jerami jagung menjadi pakan ternak tidak hanya mengurangi pembormbah bagi petani dan peternak"
+          link="/detail-edukasi"
+        />
+        <ArticleCard
+          image={pic13}
+          title="Biogas dari Limbah Pertanian"
+          description="Limbah pertanian, yang sering kali dianggap sebagai produk sampingan tak berguna, sebenarnya memiliki potensi besar untuk diolah menjadi sumber energi terbarukan, yaitu biogas. Biogas merupakan gas yang dihasilkan dari proses fermentasi anaerobik (tanpa oksigen."
+          link="/detail-edukasi"
+        />
       </div>
     </div>
   );

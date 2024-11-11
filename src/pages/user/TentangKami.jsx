@@ -1,4 +1,8 @@
 import logo from "../../assets/logo.png";
+import pic14 from "../../assets/pic14.jpeg";
+import pic15 from "../../assets/pic15.jpeg";
+import pic16 from "../../assets/pic16.jpeg";
+import pic17 from "../../assets/pic17.jpeg";
 
 import React from "react";
 
@@ -16,28 +20,23 @@ export default function TentangKami() {
         <div
           className="d-flex justify-content-center gap-3 mb-4"
           style={{
-            display: "flex",         // Gunakan display flex untuk tata letak gambar
+            display: "flex", // Gunakan display flex untuk tata letak gambar
             justifyContent: "center", // Pastikan gambar berada di tengah
-            gap: "10px",              // Jarak antar gambar
+            gap: "10px", // Jarak antar gambar
           }}
         >
           {/* Galeri Gambar */}
-          {[
-            "/path/to/image1.jpg",
-            "/path/to/image2.jpg",
-            "/path/to/image3.jpg",
-            "/path/to/image4.jpg",
-          ].map((src, index) => (
+          {[pic14, pic15, pic16, pic17].map((src, index) => (
             <img
               key={index}
-              src={logo}
+              src={src}
               alt={`Corn Image ${index + 1}`}
               className="img-thumbnail rounded mx-1"
               style={{
-                width: "100px",           // Ukuran gambar 100x100px
+                width: "100px", // Ukuran gambar 100x100px
                 height: "100px",
-                objectFit: "cover",       // Memastikan gambar tidak terdistorsi
-                borderRadius: "10px",     // Membulatkan sudut gambar
+                objectFit: "cover", // Memastikan gambar tidak terdistorsi
+                borderRadius: "10px", // Membulatkan sudut gambar
               }}
             />
           ))}
@@ -59,7 +58,7 @@ export default function TentangKami() {
       {/* Bagian Bawah */}
       <div className="text-center">
         <img
-          src={logo}
+          src={pic15}
           alt="Large Corn Image"
           className="img-fluid rounded mb-4"
           style={{ maxWidth: "80%", height: "auto" }}

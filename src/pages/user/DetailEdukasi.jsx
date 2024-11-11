@@ -1,4 +1,5 @@
 import logo from "../../assets/logo.png";
+import pic11 from "../../assets/pic11.jpeg";
 
 export default function DetailEdukasi() {
   return (
@@ -6,7 +7,7 @@ export default function DetailEdukasi() {
       {/* Image and Title Section */}
       <div className="flex flex-col md:flex-row items-start mb-10">
         <img
-          src={logo}
+          src={pic11}
           alt="E-Corn Logo"
           className="w-full md:w-1/3 h-auto rounded-md mb-4 md:mb-0 md:mr-6"
         />

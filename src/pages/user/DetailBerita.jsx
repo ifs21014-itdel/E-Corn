@@ -1,4 +1,5 @@
 import logo from "../../assets/logo.png";
+import pic9 from "../../assets/pic9.png";
 
 export default function DetailBerita() {
   return (
@@ -38,7 +39,7 @@ export default function DetailBerita() {
         }}
       >
         <img
-          src={logo}
+          src={pic9}
           alt="Ekspor pakan ternak dari Sumatera Utara"
           style={{
             width: "100%",
