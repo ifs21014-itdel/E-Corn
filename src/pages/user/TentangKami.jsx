@@ -15,14 +15,14 @@ export default function TentangKami() {
       {/* Bagian Atas dengan Latar Hijau */}
       <div
         className="bg-green-800 text-white rounded-lg p-5 mb-5 text-center mx-auto"
-        style={{ maxWidth: "80%" }} // Set lebar maksimum dan center-kan
+        style={{ maxWidth: "80%" }}
       >
         <div
           className="d-flex justify-content-center gap-3 mb-4"
           style={{
-            display: "flex", // Gunakan display flex untuk tata letak gambar
-            justifyContent: "center", // Pastikan gambar berada di tengah
-            gap: "10px", // Jarak antar gambar
+            display: "flex",
+            justifyContent: "center",
+            gap: "10px",
           }}
         >
           {/* Galeri Gambar */}
@@ -33,10 +33,10 @@ export default function TentangKami() {
               alt={`Corn Image ${index + 1}`}
               className="img-thumbnail rounded mx-1"
               style={{
-                width: "100px", // Ukuran gambar 100x100px
+                width: "100px",
                 height: "100px",
-                objectFit: "cover", // Memastikan gambar tidak terdistorsi
-                borderRadius: "10px", // Membulatkan sudut gambar
+                objectFit: "cover",
+                borderRadius: "10px",
               }}
             />
           ))}
@@ -60,7 +60,7 @@ export default function TentangKami() {
         <img
           src={pic15}
           alt="Large Corn Image"
-          className="img-fluid rounded mb-4"
+          className="img-fluid rounded mb-4 mx-auto" // Ditambahkan kelas mx-auto untuk mengatur gambar di tengah
           style={{ maxWidth: "80%", height: "auto" }}
         />
         <h2 className="text-2xl font-bold mt-3 mb-2">Tentang Kami</h2>
