@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import logo from '../../assets/logo.png';
-import pic1 from '../../assets/pic1.png';
-import pic2 from '../../assets/pic2.png';
-import pic3 from '../../assets/pic3.png';
-import pic4 from '../../assets/pic4.png';
-import pic5 from '../../assets/pic5.png';
-import pic6 from '../../assets/pic6.png';
-import pic7 from '../../assets/pic7.png';
-import pic8 from '../../assets/pic8.png';
-import pic9 from '../../assets/pic9.png';
+import logo from "../../assets/logo.png";
+import pic1 from "../../assets/pic1.png";
+import pic2 from "../../assets/pic2.png";
+import pic3 from "../../assets/pic3.png";
+import pic4 from "../../assets/pic4.png";
+import pic5 from "../../assets/pic5.png";
+import pic6 from "../../assets/pic6.png";
+import pic7 from "../../assets/pic7.png";
+import pic8 from "../../assets/pic8.png";
+import pic9 from "../../assets/pic9.png";
 import Komunitas from "./Komunitas"; // Import komponen Komunitas
 
 export default function Home() {
@@ -55,22 +55,22 @@ export default function Home() {
             <img
               src={pic2}
               alt="Benefit 1"
-              className="w-full h-32 object-cover rounded-md border-4 border-blue-500"
+              className="w-full h-auto object-cover rounded-md"
             />
             <img
               src={pic3}
               alt="Benefit 2"
-              className="w-full h-32 object-cover rounded-md"
+              className="w-full h-auto object-cover rounded-md"
             />
             <img
               src={pic4}
               alt="Benefit 3"
-              className="w-full h-32 object-cover rounded-md"
+              className="w-full h-auto object-cover rounded-md"
             />
             <img
               src={pic5}
               alt="Benefit 4"
-              className="w-full h-32 object-cover rounded-md"
+              className="w-full h-auto object-cover rounded-md"
             />
           </div>
           <div className="text-left pl-4 space-y-8">
@@ -98,7 +98,7 @@ export default function Home() {
             <img
               src={pic6}
               alt="Education 1"
-              className="w-full h-32 object-cover rounded-md mb-4"
+              className="w-full h-auto object-cover rounded-md mb-4"
             />
             <p>Tongkol Jagung</p>
           </div>
@@ -106,7 +106,7 @@ export default function Home() {
             <img
               src={pic7}
               alt="Education 2"
-              className="w-full h-32 object-cover rounded-md mb-4"
+              className="w-full h-auto object-cover rounded-md mb-4"
             />
             <p>Daun Jagung</p>
           </div>
@@ -114,7 +114,7 @@ export default function Home() {
             <img
               src={pic8}
               alt="Education 3"
-              className="w-full h-32 object-cover rounded-md mb-4"
+              className="w-full h-auto object-cover rounded-md mb-4"
             />
             <p>Kulit Jagung</p>
           </div>
