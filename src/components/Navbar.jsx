@@ -1,25 +1,25 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import logo from '../assets/logo.png';
+import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import logo from '../assets/logo.png'
 
 export const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false)
+  const location = useLocation()
 
   // Fungsi untuk menentukan apakah link aktif
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => location.pathname === path
 
   // Fungsi untuk menutup menu setelah link diklik
   const handleLinkClick = () => {
-    setIsOpen(false);
-  };
+    setIsOpen(false)
+  }
 
   return (
     <div className="navbar fixed w-full transition-all py-4 bg-[#f0f4e3] shadow-md z-50">
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
-        <div className="logo flex items-center space-x-2">
-          <img src={logo} alt="E-Corn Logo" className="h-10" />
+        <div className="logo flex items-center space-x-0">
+          <img src={logo} alt="E-Corn Logo" className="h-14" />
           <h1 className="text-2xl font-bold text-green-700">E-Corn</h1>
         </div>
 
@@ -89,7 +89,10 @@ export const Navbar = () => {
 
         {/* Hamburger Icon for Mobile */}
         <div className="md:hidden flex items-center">
-          <button onClick={() => setIsOpen(!isOpen)} className="text-gray-700 focus:outline-none">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-gray-700 focus:outline-none"
+          >
             {/* Icon */}
             <svg
               className="w-6 h-6"
@@ -98,7 +101,12 @@ export const Navbar = () => {
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
             </svg>
           </button>
         </div>
@@ -162,7 +170,7 @@ export const Navbar = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

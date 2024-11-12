@@ -1,12 +1,12 @@
-import logo from "../../assets/logo.png";
-import pic6 from "../../assets/pic6.png";
-import pic7 from "../../assets/pic7.png";
-import pic8 from "../../assets/pic8.png";
-import pic11 from "../../assets/pic11.jpeg";
-import pic12 from "../../assets/pic12.jpeg";
-import pic13 from "../../assets/pic13.jpeg";
+import logo from '../../assets/logo.png'
+import pic6 from '../../assets/pic6.png'
+import pic7 from '../../assets/pic7.png'
+import pic8 from '../../assets/pic8.png'
+import pic11 from '../../assets/pic11.jpeg'
+import pic12 from '../../assets/pic12.jpeg'
+import pic13 from '../../assets/pic13.jpeg'
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 const ArticleCard = ({ image, title, description, link }) => (
   <div className="bg-white p-6 rounded-lg shadow-md">
@@ -24,13 +24,13 @@ const ArticleCard = ({ image, title, description, link }) => (
       Baca Selengkapnya
     </Link>
   </div>
-);
+)
 
 export default function Edukasi() {
   return (
-    <div className="container mx-auto p-10">
+    <div className="container mx-auto p-10 ">
       {/* Header Text */}
-      <h2 className="text-2xl font-semibold text-center mb-8">
+      <h2 className="text-2xl font-semibold text-center mb-8 mt-20">
         Mempelajari pertanian jagung adalah mempelajari harmoni antara manusia
         dan alam, memahami bahwa kita adalah bagian dari ekosistem yang saling
         mendukung
@@ -93,34 +93,16 @@ export default function Edukasi() {
         <ArticleCard
           image={pic12}
           title="Pengolahan Limbah Jerami jagung Menjadi Pakan Ternak"
-          description="Jerami jagung, yang biasanya dianggap sebagai limbah setelah panen, sebenarnya memiliki potensi besar sebagai sumber pakan ternak. Pengolahan limbah jerami jagung menjadi pakan ternak tidak hanya mengurangi pembormbah bagi petani dan peternak"
+          description="Jerami jagung, yang biasanya dianggap sebagai limbah setelah panen, sebenarnya memiliki potensi besar sebagai sumber pakan ternak. Pengolahan limbah jerami jagung menjadi pakan ternak tidak hanya mengurangi pemborosan bagi petani dan peternak."
           link="/detail-edukasi"
         />
         <ArticleCard
           image={pic13}
           title="Biogas dari Limbah Pertanian"
-          description="Limbah pertanian, yang sering kali dianggap sebagai produk sampingan tak berguna, sebenarnya memiliki potensi besar untuk diolah menjadi sumber energi terbarukan, yaitu biogas. Biogas merupakan gas yang dihasilkan dari proses fermentasi anaerobik (tanpa oksigen."
-          link="/detail-edukasi"
-        />
-        <ArticleCard
-          image={pic11}
-          title="Biochar: Solusi Limbah Pertanian untuk Peningkatan Kualitas Tanah"
-          description="Biochar merupakan salah satu solusi berkelanjutan yang semakin populer dalam pengelolaan limbah pertanian. Biochar adalah bahan karbon yang dihasilkan dari pembakaran biomassa organik (seperti sisa-sisa tanaman, kayu, atau limbah pertanian) pada suhu tinggi dalam kondisi minim oksigen."
-          link="/detail-edukasi"
-        />
-        <ArticleCard
-          image={pic12}
-          title="Pengolahan Limbah Jerami jagung Menjadi Pakan Ternak"
-          description="Jerami jagung, yang biasanya dianggap sebagai limbah setelah panen, sebenarnya memiliki potensi besar sebagai sumber pakan ternak. Pengolahan limbah jerami jagung menjadi pakan ternak tidak hanya mengurangi pembormbah bagi petani dan peternak"
-          link="/detail-edukasi"
-        />
-        <ArticleCard
-          image={pic13}
-          title="Biogas dari Limbah Pertanian"
-          description="Limbah pertanian, yang sering kali dianggap sebagai produk sampingan tak berguna, sebenarnya memiliki potensi besar untuk diolah menjadi sumber energi terbarukan, yaitu biogas. Biogas merupakan gas yang dihasilkan dari proses fermentasi anaerobik (tanpa oksigen."
+          description="Limbah pertanian, yang sering kali dianggap sebagai produk sampingan tak berguna, sebenarnya memiliki potensi besar untuk diolah menjadi sumber energi terbarukan, yaitu biogas. Biogas merupakan gas yang dihasilkan dari proses fermentasi anaerobik tanpa oksigen."
           link="/detail-edukasi"
         />
       </div>
     </div>
-  );
+  )
 }

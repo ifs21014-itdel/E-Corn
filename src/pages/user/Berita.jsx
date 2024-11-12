@@ -6,7 +6,7 @@ export default function Berita() {
     <div className="bg-[#EDEDED] min-h-screen flex items-center justify-center py-12 pt-20">
       <div className="container w-full md:w-11/12 lg:w-3/4">
         {/* Menampilkan "Berita" Tanpa Latar Hijau */}
-        <h3 className="text-2xl font-bold text-[#333] mb-4 text-center">
+        <h3 className="text-2xl font-bold text-[#333] mb-4 text-center mt-5">
           Berita
         </h3>
 

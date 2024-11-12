@@ -1,10 +1,10 @@
-import logo from "../../assets/logo.png";
-import pic14 from "../../assets/pic14.jpeg";
-import pic15 from "../../assets/pic15.jpeg";
-import pic16 from "../../assets/pic16.jpeg";
-import pic17 from "../../assets/pic17.jpeg";
+import logo from '../../assets/logo.png'
+import pic14 from '../../assets/pic14.jpeg'
+import pic15 from '../../assets/pic15.jpeg'
+import pic16 from '../../assets/pic16.jpeg'
+import pic17 from '../../assets/pic17.jpeg'
 
-import React from "react";
+import React from 'react'
 
 export default function TentangKami() {
   return (
@@ -15,14 +15,14 @@ export default function TentangKami() {
       {/* Bagian Atas dengan Latar Hijau */}
       <div
         className="bg-green-800 text-white rounded-lg p-5 mb-5 text-center mx-auto"
-        style={{ maxWidth: "80%" }}
+        style={{ maxWidth: '80%' }}
       >
         <div
           className="d-flex justify-content-center gap-3 mb-4"
           style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "10px",
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '10px',
           }}
         >
           {/* Galeri Gambar */}
@@ -33,10 +33,10 @@ export default function TentangKami() {
               alt={`Corn Image ${index + 1}`}
               className="img-thumbnail rounded mx-1"
               style={{
-                width: "100px",
-                height: "100px",
-                objectFit: "cover",
-                borderRadius: "10px",
+                width: '100px',
+                height: '100px',
+                objectFit: 'cover',
+                borderRadius: '10px',
               }}
             />
           ))}
@@ -60,8 +60,8 @@ export default function TentangKami() {
         <img
           src={pic15}
           alt="Large Corn Image"
-          className="img-fluid rounded mb-4 mx-auto" // Ditambahkan kelas mx-auto untuk mengatur gambar di tengah
-          style={{ maxWidth: "80%", height: "auto" }}
+          className="img-fluid rounded mb-4 mx-auto"
+          style={{ maxWidth: '80%', height: 'auto' }}
         />
         <h2 className="text-2xl font-bold mt-3 mb-2">Tentang Kami</h2>
         <h4 className="text-xl font-semibold mb-2">
@@ -78,5 +78,5 @@ export default function TentangKami() {
         </p>
       </div>
     </div>
-  );
+  )
 }
