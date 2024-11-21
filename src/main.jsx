@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom/client";
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import Home from "./pages/user/Home";
@@ -13,6 +13,7 @@ import Login from "./pages/Auth/Login";
 import DetailEdukasi from "./pages/user/DetailEdukasi";
 import DetailBerita from "./pages/user/DetailBerita";
 import TentangKami from "./pages/user/TentangKami";
+import AuthGuard from "./utils/AuthGuard"; // Import AuthGuard
 
 const router = createBrowserRouter([
   {
@@ -28,72 +29,85 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: (
-      <>
-        <Navbar />
-        <Home />
-        <Footer />
-      </>
+      
+        <>
+          <Navbar />
+          <Home />
+          <Footer />
+        </>
+      
     ),
   },
   {
     path: "/edukasi",
     element: (
-      <>
-        <Navbar />
-        <Edukasi />
-        <Footer />
-      </>
+      
+        <>
+          <Navbar />
+          <Edukasi />
+          <Footer />
+        </>
+     
     ),
   },
   {
     path: "/detail-edukasi",
     element: (
-      <>
-        <Navbar />
-        <DetailEdukasi />
-        <Footer />
-      </>
+    
+        <>
+          <Navbar />
+          <DetailEdukasi />
+          <Footer />
+        </>
+     
     ),
   },
   {
     path: "/komunitas",
     element: (
-      <>
-        <Navbar />
-        <Komunitas />
-        <Footer />
-      </>
+      <AuthGuard>
+        <>
+          <Navbar />
+          <Komunitas />
+          <Footer />
+        </>
+      </AuthGuard>
     ),
   },
   {
-    
     path: "/komunitas/:id",
     element: (
-      <>
-        <Navbar />
-        <DetailDiskusi />
-        <Footer />
-      </>
+      <AuthGuard>
+        <>
+          <Navbar />
+          <DetailDiskusi />
+          <Footer />
+        </>
+      </AuthGuard>
     ),
   },
   {
     path: "/berita",
     element: (
-      <>
-        <Navbar />
-        <Berita />
-        <Footer />
-      </>
+    
+        <>
+          <Navbar />
+          <Berita />
+          <Footer />
+        </>
+      
     ),
   },
   {
     path: "/detail-berita",
     element: (
-      <>
-        <Navbar />
-        <DetailBerita />
-        <Footer />
-      </>
+     
+        <>
+          <Navbar />
+          <DetailBerita />
+          <Footer />
+        </>
+     
     ),
   },
   {
@@ -108,11 +122,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: (
-      <>
-        <Login />
-      </>
-    ),
+    element: <Login />,
   },
 ]);
 

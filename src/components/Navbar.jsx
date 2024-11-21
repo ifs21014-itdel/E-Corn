@@ -1,18 +1,33 @@
-import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import logo from '../assets/logo.png'
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 export const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const location = useLocation()
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State untuk login status
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Cek token saat komponen dimuat
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token); // Set isLoggedIn menjadi true jika token ada
+  }, [location]); // Perbarui ketika location berubah
 
   // Fungsi untuk menentukan apakah link aktif
-  const isActive = (path) => location.pathname === path
+  const isActive = (path) => location.pathname === path;
 
   // Fungsi untuk menutup menu setelah link diklik
   const handleLinkClick = () => {
-    setIsOpen(false)
-  }
+    setIsOpen(false);
+  };
+
+  // Fungsi Logout
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Hapus token dari localStorage
+    setIsLoggedIn(false); // Set isLoggedIn menjadi false
+    navigate("/login"); // Arahkan ke halaman login
+  };
 
   return (
     <div className="navbar fixed w-full transition-all py-4 bg-[#f0f4e3] shadow-md z-50">
@@ -29,7 +44,7 @@ export const Navbar = () => {
             <Link
               to="/home"
               className={`hover:text-gray-900 ${
-                isActive('/home') ? 'text-green-700 font-bold' : ''
+                isActive("/home") ? "text-green-700 font-bold" : ""
               }`}
             >
               Beranda
@@ -39,7 +54,7 @@ export const Navbar = () => {
             <Link
               to="/edukasi"
               className={`hover:text-gray-900 ${
-                isActive('/edukasi') ? 'text-green-700 font-bold' : ''
+                isActive("/edukasi") ? "text-green-700 font-bold" : ""
               }`}
             >
               Edukasi
@@ -49,7 +64,7 @@ export const Navbar = () => {
             <Link
               to="/berita"
               className={`hover:text-gray-900 ${
-                isActive('/berita') ? 'text-green-700 font-bold' : ''
+                isActive("/berita") ? "text-green-700 font-bold" : ""
               }`}
             >
               Berita
@@ -59,7 +74,7 @@ export const Navbar = () => {
             <Link
               to="/komunitas"
               className={`hover:text-gray-900 ${
-                isActive('/komunitas') ? 'text-green-700 font-bold' : ''
+                isActive("/komunitas") ? "text-green-700 font-bold" : ""
               }`}
             >
               Komunitas
@@ -69,7 +84,7 @@ export const Navbar = () => {
             <Link
               to="/tentang-kami"
               className={`hover:text-gray-900 ${
-                isActive('/tentang-kami') ? 'text-green-700 font-bold' : ''
+                isActive("/tentang-kami") ? "text-green-700 font-bold" : ""
               }`}
             >
               Tentang Kami
@@ -77,14 +92,23 @@ export const Navbar = () => {
           </li>
         </ul>
 
-        {/* Masuk Button */}
+        {/* Masuk / Logout Button */}
         <div className="hidden md:block">
-          <Link
-            to="/login"
-            className="bg-yellow-500 text-black px-5 py-2 rounded-full font-bold hover:bg-yellow-600 transition-colors"
-          >
-            Masuk
-          </Link>
+          {isLoggedIn ? (
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 text-white px-5 py-2 rounded-full font-bold hover:bg-red-600 transition-colors"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="bg-yellow-500 text-black px-5 py-2 rounded-full font-bold hover:bg-yellow-600 transition-colors"
+            >
+              Masuk
+            </Link>
+          )}
         </div>
 
         {/* Hamburger Icon for Mobile */}
@@ -118,7 +142,7 @@ export const Navbar = () => {
           <Link
             to="/home"
             className={`block hover:bg-green-700 p-2 rounded ${
-              isActive('/home') ? 'bg-green-700' : ''
+              isActive("/home") ? "bg-green-700" : ""
             }`}
             onClick={handleLinkClick}
           >
@@ -127,7 +151,7 @@ export const Navbar = () => {
           <Link
             to="/edukasi"
             className={`block hover:bg-green-700 p-2 rounded ${
-              isActive('/edukasi') ? 'bg-green-700' : ''
+              isActive("/edukasi") ? "bg-green-700" : ""
             }`}
             onClick={handleLinkClick}
           >
@@ -136,7 +160,7 @@ export const Navbar = () => {
           <Link
             to="/berita"
             className={`block hover:bg-green-700 p-2 rounded ${
-              isActive('/berita') ? 'bg-green-700' : ''
+              isActive("/berita") ? "bg-green-700" : ""
             }`}
             onClick={handleLinkClick}
           >
@@ -145,7 +169,7 @@ export const Navbar = () => {
           <Link
             to="/komunitas"
             className={`block hover:bg-green-700 p-2 rounded ${
-              isActive('/komunitas') ? 'bg-green-700' : ''
+              isActive("/komunitas") ? "bg-green-700" : ""
             }`}
             onClick={handleLinkClick}
           >
@@ -154,23 +178,35 @@ export const Navbar = () => {
           <Link
             to="/tentang-kami"
             className={`block hover:bg-green-700 p-2 rounded ${
-              isActive('/tentang-kami') ? 'bg-green-700' : ''
+              isActive("/tentang-kami") ? "bg-green-700" : ""
             }`}
             onClick={handleLinkClick}
           >
             Tentang Kami
           </Link>
-          <Link
-            to="/login"
-            className="block bg-white text-green-700 font-bold p-2 rounded hover:bg-gray-200 text-center"
-            onClick={handleLinkClick}
-          >
-            Masuk
-          </Link>
+          {isLoggedIn ? (
+            <button
+              onClick={() => {
+                handleLogout();
+                handleLinkClick();
+              }}
+              className="block bg-white text-red-700 font-bold p-2 rounded hover:bg-gray-200 text-center"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="block bg-white text-green-700 font-bold p-2 rounded hover:bg-gray-200 text-center"
+              onClick={handleLinkClick}
+            >
+              Masuk
+            </Link>
+          )}
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

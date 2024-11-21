@@ -1,68 +1,110 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import google from "../../assets/google.png";
-import facebook from "../../assets/facebook.png";
-import jagung from "../../assets/jagung.jpeg"; 
+import jagung from "../../assets/jagung.jpeg";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); // State untuk error message dari API
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Login failed");
+      }
+
+      const data = await response.json();
+      localStorage.setItem("token", data.token); // Simpan token ke localStorage
+      navigate("/home"); // Redirect ke halaman home setelah login berhasil
+    } catch (err) {
+      setError(err.message); // Set pesan error ke state
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#2C4001]">
-      <div className="w-full max-w-2xl bg-[#D9E4C7] rounded-lg shadow-lg flex overflow-hidden">
-        {/* Left side (Login form) */}
-        <div className="p-8 w-1/2 flex flex-col justify-center">
-          <h2 className="text-2xl font-bold text-black mb-6 text-center">
-            Login
-          </h2>
-          <form className="space-y-4">
-            <input
-              type="text"
-              placeholder="Email/Nama"
-              className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none"
-            />
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br bg-[#2C4001]">
+      <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg flex overflow-hidden">
+        {/* Left Section - Form */}
+        <div className="p-10 w-full md:w-1/2 flex flex-col justify-center">
+          <div className="text-center mb-6">
+            <img src={logo} alt="E-Corn Logo" className="w-16 h-16 mx-auto" />
+            <h2 className="text-3xl font-bold text-green-800">Welcome Back</h2>
+            <p className="text-gray-500 mt-2">
+              Login to access your personalized dashboard.
+            </p>
+          </div>
 
-            {/* "Lupa password?" link directly below the password field, aligned to the left */}
-            <div className="text-sm text-gray-500 mt-1">
-              <a href="#" className="underline hover:text-blue-500">
-                Lupa password?
-              </a>
+          {error && (
+            <p className="text-red-500 text-center mb-4">{error}</p>
+          )} {/* Tampilkan error */}
+
+          <form className="space-y-6" onSubmit={handleLogin}>
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500"
+                placeholder="Enter your email"
+              />
             </div>
-
-            <button className="w-full bg-[#2C4001] text-white py-2 rounded-full font-bold hover:bg-green-800 transition mt-4">
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500"
+                placeholder="Enter your password"
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-[#2C4001] text-white py-2 rounded-lg font-semibold hover:bg-green-700 transition duration-300"
+            >
               Login
             </button>
           </form>
 
-          <div className="flex items-center justify-center mt-4 text-gray-500">
-            <span>or sign in with</span>
-          </div>
-          <div className="flex items-center justify-center mt-2 space-x-4">
-            <button>
-              <img src={google} alt="Google" className="w-6 h-6" />
-            </button>
-            <button>
-              <img src={facebook} alt="Facebook" className="w-6 h-6" />
-            </button>
-          </div>
-
-          <div className="text-center text-sm text-gray-500 mt-4">
-            belum punya akun?{" "}
-            <a href="#" className="font-bold text-black hover:underline">
-              Register
+          <p className="text-sm text-center text-gray-500 mt-6">
+            Don't have an account?{" "}
+            <a
+              href="/register"
+              className="text-green-600 font-semibold hover:underline"
+            >
+              Sign Up
             </a>
-          </div>
+          </p>
         </div>
 
-        {/* Right side (Background image) */}
-        <div
-          className="w-1/2 bg-cover bg-center relative"
-          style={{ backgroundImage: `url(${jagung})` }}
-        >
-          <div className="absolute top-4 left-4">
-            <img src={logo} alt="E-Corn Logo" className="w-16 h-16" />
+        {/* Right Section - Image */}
+        <div className="hidden md:block md:w-1/2 bg-cover bg-center" style={{ backgroundImage: `url(${jagung})` }}>
+          <div className="bg-gradient-to-t from-black via-transparent to-transparent h-full w-full flex items-end justify-center pb-6">
+            <h3 className="text-white text-lg font-bold">E-Corn Agriculture Platform</h3>
           </div>
         </div>
       </div>
