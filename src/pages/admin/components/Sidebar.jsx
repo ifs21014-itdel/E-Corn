@@ -81,11 +81,11 @@ const Sidebar = ({ children }) => {
             </li>
             <li>
               <Link
-                to="/admin/tentang"
+                to="/admin/about"
                 className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
               >
                 <AiOutlineInfoCircle className="text-xl" />
-                {isSidebarOpen && <span>Tentang</span>}
+                {isSidebarOpen && <span>About</span>}
               </Link>
             </li>
             <li>
