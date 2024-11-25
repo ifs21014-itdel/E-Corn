@@ -14,7 +14,11 @@ import DetailEdukasi from "./pages/user/DetailEdukasi";
 import DetailBerita from "./pages/user/DetailBerita";
 import TentangKami from "./pages/user/TentangKami";
 import AuthGuard from "./utils/AuthGuard"; // Import AuthGuard
-import AdminDashboard from "./pages/AuthAdmin/AdminDashboard";
+
+import Sidebar from "./pages/admin/components/Sidebar";
+import User from "./pages/admin/pages/User";
+import AdminLogin from "./pages/admin/pages/AdminLogin";
+
 
 const router = createBrowserRouter([
   {
@@ -126,11 +130,28 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
+    path: "/admin/login",
+    element: <AdminLogin />,
+  },
+  {
     path: "/admin",
     element: (
-      <>
-       <AdminDashboard/>
-      </>
+      
+        <Sidebar>
+          <User />
+        </Sidebar>
+      
+    ),
+  },
+  {
+    path: "/admin/users",
+    element: (
+      <div className="flex">
+        <Sidebar />
+        <div className="flex-grow">
+          <User/>
+        </div>
+      </div>
     ),
   },
  

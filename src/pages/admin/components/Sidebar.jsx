@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { FaHome, FaUsers, FaCog, FaChartBar, FaBars } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom"; // Import Link dan useNavigate
 
-const AdminDashboard = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+const Sidebar = ({ children }) => {
+  const [isSidebarOpen, setSidebarOpen] = useState(true); // State untuk sidebar
+  const navigate = useNavigate(); // Hook untuk navigasi
 
   const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
+    setSidebarOpen(!isSidebarOpen); // Toggle state sidebar
+  };
+
+  const handleLogout = () => {
+    // Hapus token dan role dari localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+
+    // Redirect ke halaman login
+    navigate("/admin/login");
   };
 
   return (
@@ -18,7 +29,7 @@ const AdminDashboard = () => {
       >
         {/* Sidebar toggle button */}
         <button
-          className="text-white text-2xl p-4 md:hidden"
+          className="text-white text-2xl p-4"
           onClick={toggleSidebar}
         >
           <FaBars />
@@ -28,68 +39,65 @@ const AdminDashboard = () => {
         <div className="flex-grow flex flex-col">
           <ul className="space-y-2 mt-4">
             <li>
-              <a
-                href="#home"
+              <Link
+                to="/admin/home"
                 className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
               >
                 <FaHome className="text-xl" />
                 {isSidebarOpen && <span>Home</span>}
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#users"
+              <Link
+                to="/admin/users"
                 className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
               >
                 <FaUsers className="text-xl" />
                 {isSidebarOpen && <span>Users</span>}
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#settings"
+              <Link
+                to="/admin/settings"
                 className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
               >
                 <FaCog className="text-xl" />
                 {isSidebarOpen && <span>Settings</span>}
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#reports"
+              <Link
+                to="/admin/reports"
                 className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
               >
                 <FaChartBar className="text-xl" />
                 {isSidebarOpen && <span>Reports</span>}
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
 
         {/* Logout button */}
         <div className="p-4">
-          {isSidebarOpen && (
-            <button className="bg-red-600 text-white w-full p-3 rounded-md hover:bg-red-700 transition-all">
-              Logout
-            </button>
-          )}
+          <button
+            onClick={handleLogout} // Event handler logout
+            className="bg-red-600 text-white w-full p-3 rounded-md hover:bg-red-700 transition-all"
+          >
+            Logout
+          </button>
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Konten utama */}
       <div
-        className={`${
+        className={`flex-grow transition-all duration-300 ${
           isSidebarOpen ? "ml-64" : "ml-20"
-        } flex-grow p-8 transition-all duration-300`}
+        } p-6`}
       >
-        <h1 className="text-4xl font-semibold text-gray-800">Admin Dashboard</h1>
-        <p className="mt-4 text-lg text-gray-600">
-          Welcome to the admin dashboard. Manage users, view reports, and adjust
-          settings from the sidebar.
-        </p>
+        {children}
       </div>
     </div>
   );
 };
 
-export default AdminDashboard;
+export default Sidebar;
