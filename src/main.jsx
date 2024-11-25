@@ -18,6 +18,7 @@ import AuthGuard from "./utils/AuthGuard"; // Import AuthGuard
 import Sidebar from "./pages/admin/components/Sidebar";
 import User from "./pages/admin/pages/User";
 import AdminLogin from "./pages/admin/pages/AdminLogin";
+import About from "./pages/admin/pages/About";
 
 
 const router = createBrowserRouter([
@@ -150,6 +151,17 @@ const router = createBrowserRouter([
         <Sidebar />
         <div className="flex-grow">
           <User/>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/admin/about",
+    element: (
+      <div className="flex">
+        <Sidebar /> {/* Sidebar untuk navigasi admin */}
+        <div className="flex-grow">
+          <About /> {/* Komponen Admin About */}
         </div>
       </div>
     ),
