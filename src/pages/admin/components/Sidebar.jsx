@@ -1,21 +1,20 @@
-import  { useState } from "react";
-import { FaHome, FaUsers, FaCog, FaChartBar, FaBars } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom"; // Import Link dan useNavigate
+import { useState } from "react";
+import { FaHome, FaUser, FaUsers, FaGraduationCap, FaCog, FaBars } from "react-icons/fa"; // Import FaUser dan FaUsers
+import { MdOutlineArticle } from "react-icons/md"; // Ikon Berita
+import { AiOutlineInfoCircle } from "react-icons/ai"; // Ikon Tentang
+import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = ({ children }) => {
-  const [isSidebarOpen, setSidebarOpen] = useState(true); // State untuk sidebar
-  const navigate = useNavigate(); // Hook untuk navigasi
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen); // Toggle state sidebar
+    setSidebarOpen(!isSidebarOpen);
   };
 
   const handleLogout = () => {
-    // Hapus token dan role dari localStorage
     localStorage.removeItem("token");
     localStorage.removeItem("role");
-
-    // Redirect ke halaman login
     navigate("/admin/login");
   };
 
@@ -28,10 +27,7 @@ const Sidebar = ({ children }) => {
         } fixed left-0 top-0 h-full bg-gray-800 text-white shadow-lg transition-all duration-300 flex flex-col justify-between z-50`}
       >
         {/* Sidebar toggle button */}
-        <button
-          className="text-white text-2xl p-4"
-          onClick={toggleSidebar}
-        >
+        <button className="text-white text-2xl p-4" onClick={toggleSidebar}>
           <FaBars />
         </button>
 
@@ -52,8 +48,44 @@ const Sidebar = ({ children }) => {
                 to="/admin/users"
                 className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
               >
-                <FaUsers className="text-xl" />
+                <FaUser className="text-xl" /> {/* Ikon orang satu */}
                 {isSidebarOpen && <span>Users</span>}
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin/edukasi"
+                className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
+              >
+                <FaGraduationCap className="text-xl" />
+                {isSidebarOpen && <span>Edukasi</span>}
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin/berita"
+                className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
+              >
+                <MdOutlineArticle className="text-xl" />
+                {isSidebarOpen && <span>Berita</span>}
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin/komunitas"
+                className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
+              >
+                <FaUsers className="text-xl" /> {/* Ikon grup */}
+                {isSidebarOpen && <span>Komunitas</span>}
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin/tentang"
+                className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
+              >
+                <AiOutlineInfoCircle className="text-xl" />
+                {isSidebarOpen && <span>Tentang</span>}
               </Link>
             </li>
             <li>
@@ -65,22 +97,13 @@ const Sidebar = ({ children }) => {
                 {isSidebarOpen && <span>Settings</span>}
               </Link>
             </li>
-            <li>
-              <Link
-                to="/admin/reports"
-                className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
-              >
-                <FaChartBar className="text-xl" />
-                {isSidebarOpen && <span>Reports</span>}
-              </Link>
-            </li>
           </ul>
         </div>
 
         {/* Logout button */}
         <div className="p-4">
           <button
-            onClick={handleLogout} // Event handler logout
+            onClick={handleLogout}
             className="bg-red-600 text-white w-full p-3 rounded-md hover:bg-red-700 transition-all"
           >
             Logout
