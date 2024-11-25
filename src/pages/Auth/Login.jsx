@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import jagung from "../../assets/jagung.jpeg";
+import { loginUser } from "../../services/AuthService"; // Import service
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -13,18 +14,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Login failed");
-      }
-
-      const data = await response.json();
+      const data = await loginUser(email, password); // Panggil service
       localStorage.setItem("token", data.token); // Simpan token ke localStorage
       navigate("/home"); // Redirect ke halaman home setelah login berhasil
     } catch (err) {
@@ -45,9 +35,7 @@ export default function Login() {
             </p>
           </div>
 
-          {error && (
-            <p className="text-red-500 text-center mb-4">{error}</p>
-          )} {/* Tampilkan error */}
+          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
           <form className="space-y-6" onSubmit={handleLogin}>
             <div>
@@ -102,9 +90,14 @@ export default function Login() {
         </div>
 
         {/* Right Section - Image */}
-        <div className="hidden md:block md:w-1/2 bg-cover bg-center" style={{ backgroundImage: `url(${jagung})` }}>
+        <div
+          className="hidden md:block md:w-1/2 bg-cover bg-center"
+          style={{ backgroundImage: `url(${jagung})` }}
+        >
           <div className="bg-gradient-to-t from-black via-transparent to-transparent h-full w-full flex items-end justify-center pb-6">
-            <h3 className="text-white text-lg font-bold">E-Corn Agriculture Platform</h3>
+            <h3 className="text-white text-lg font-bold">
+              E-Corn Agriculture Platform
+            </h3>
           </div>
         </div>
       </div>
