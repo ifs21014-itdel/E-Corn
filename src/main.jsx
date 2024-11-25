@@ -14,6 +14,7 @@ import DetailEdukasi from "./pages/user/DetailEdukasi";
 import DetailBerita from "./pages/user/DetailBerita";
 import TentangKami from "./pages/user/TentangKami";
 import AuthGuard from "./utils/AuthGuard"; // Import AuthGuard
+import AdminDashboard from "./pages/AuthAdmin/AdminDashboard";
 
 const router = createBrowserRouter([
   {
@@ -124,6 +125,15 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
+  {
+    path: "/admin",
+    element: (
+      <>
+       <AdminDashboard/>
+      </>
+    ),
+  },
+ 
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
