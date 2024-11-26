@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { FaHome, FaUser, FaUsers, FaGraduationCap, FaCog, FaBars } from "react-icons/fa"; // Import FaUser dan FaUsers
-import { MdOutlineArticle } from "react-icons/md"; // Ikon Berita
-import { AiOutlineInfoCircle } from "react-icons/ai"; // Ikon Tentang
+import {FaHome, FaUser, FaUsers, FaGraduationCap, FaCog, FaBars, FaSignOutAlt, 
+} from "react-icons/fa";
+import { MdOutlineArticle } from "react-icons/md"; 
+import { AiOutlineInfoCircle } from "react-icons/ai"; 
 import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = ({ children }) => {
@@ -48,7 +49,7 @@ const Sidebar = ({ children }) => {
                 to="/admin/users"
                 className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
               >
-                <FaUser className="text-xl" /> {/* Ikon orang satu */}
+                <FaUser className="text-xl" />
                 {isSidebarOpen && <span>Users</span>}
               </Link>
             </li>
@@ -75,7 +76,7 @@ const Sidebar = ({ children }) => {
                 to="/admin/komunitas"
                 className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
               >
-                <FaUsers className="text-xl" /> {/* Ikon grup */}
+                <FaUsers className="text-xl" />
                 {isSidebarOpen && <span>Komunitas</span>}
               </Link>
             </li>
@@ -104,9 +105,10 @@ const Sidebar = ({ children }) => {
         <div className="p-4">
           <button
             onClick={handleLogout}
-            className="bg-red-600 text-white w-full p-3 rounded-md hover:bg-red-700 transition-all"
+            className="flex items-center justify-center space-x-4 bg-red-600 text-white w-full p-3 rounded-md hover:bg-red-700 transition-all"
           >
-            Logout
+            <FaSignOutAlt className="text-xl" /> {/* Ikon Logout */}
+            {isSidebarOpen && <span>Logout</span>}
           </button>
         </div>
       </div>
