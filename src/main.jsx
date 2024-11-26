@@ -19,6 +19,7 @@ import Sidebar from "./pages/admin/components/Sidebar";
 import User from "./pages/admin/pages/User";
 import AdminLogin from "./pages/admin/pages/AdminLogin";
 import About from "./pages/admin/pages/About";
+import AdminEdukasi from "./pages/admin/pages/AdminEdukasi";
 
 
 const router = createBrowserRouter([
@@ -162,6 +163,17 @@ const router = createBrowserRouter([
         <Sidebar /> {/* Sidebar untuk navigasi admin */}
         <div className="flex-grow">
           <About /> {/* Komponen Admin About */}
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/admin/edukasi",
+    element: (
+      <div className="flex">
+        <Sidebar /> {}
+        <div className="flex-grow">
+          <AdminEdukasi /> {}
         </div>
       </div>
     ),

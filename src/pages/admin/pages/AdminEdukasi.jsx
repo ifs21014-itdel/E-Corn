@@ -1,6 +1,6 @@
-import { useState } from "react";
+import  { useState } from "react";
 
-const AboutList = () => {
+const AdminEdukasi = () => {
   const [data, setData] = useState([
     {
       judul: "Tentang Aplikasi",
@@ -74,7 +74,7 @@ const AboutList = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <h2 className="text-2xl font-bold text-center my-6">About List</h2>
+      <h2 className="text-2xl font-bold text-center my-6">Edukasi</h2>
 
       {/* Button */}
       <div className="flex justify-end max-w-7xl mx-auto mb-4">
@@ -82,7 +82,7 @@ const AboutList = () => {
           onClick={() => openModal()}
           className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
         >
-          Tambah About
+          Tambah Edukasi
         </button>
       </div>
 
@@ -209,4 +209,4 @@ const AboutList = () => {
   );
 };
 
-export default AboutList;
+export default AdminEdukasi;
