@@ -1,92 +1,169 @@
-import { useState } from "react";
-import api from "../../../utils/api";
+import React, { useState } from "react";
 
-const About = () => {
-  const [form, setForm] = useState({
+const AboutList = () => {
+  const [data, setData] = useState([
+    {
+      judul: "Tentang Aplikasi",
+      deskripsiSingkat: "Aplikasi untuk pengelolaan data.",
+      deskripsiPanjang: "Aplikasi ini dirancang untuk memudahkan pengelolaan data pengguna, berita, dan komunitas.",
+      gambar: "gambar1.png",
+    },
+    {
+      judul: "Fitur Unggulan",
+      deskripsiSingkat: "Fitur canggih untuk produktivitas.",
+      deskripsiPanjang: "Fitur seperti pengelolaan pengguna, berita, dan pengaturan komunitas tersedia di aplikasi ini.",
+      gambar: "gambar2.png",
+    },
+  ]);
+
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [newAbout, setNewAbout] = useState({
     judul: "",
     deskripsiSingkat: "",
     deskripsiPanjang: "",
-    gambar: null,
+    gambar: "",
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("judul", form.judul);
-    formData.append("deskripsiSingkat", form.deskripsiSingkat);
-    formData.append("deskripsiPanjang", form.deskripsiPanjang);
-    formData.append("gambar", form.gambar);
+  const toggleModal = () => {
+    setModalOpen(!isModalOpen);
+    setNewAbout({
+      judul: "",
+      deskripsiSingkat: "",
+      deskripsiPanjang: "",
+      gambar: "",
+    });
+  };
 
-    try {
-      await api.post("/about", formData);
-      alert("Data berhasil ditambahkan!");
-    } catch (error) {
-      console.error(error);
-    }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewAbout({ ...newAbout, [name]: value });
+  };
+
+  const handleFileChange = (e) => {
+    setNewAbout({ ...newAbout, gambar: e.target.files[0]?.name || "" });
+  };
+
+  const handleAddAbout = () => {
+    setData([...data, newAbout]);
+    toggleModal();
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-bold text-center mb-6">Tambah About</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="space-y-4">
-          {/* Judul */}
-          <div>
-            <label className="block font-semibold text-gray-700">Judul:</label>
-            <input
-              type="text"
-              value={form.judul}
-              onChange={(e) => setForm({ ...form, judul: e.target.value })}
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Masukkan judul"
-            />
-          </div>
-
-          {/* Deskripsi Singkat */}
-          <div>
-            <label className="block font-semibold text-gray-700">Deskripsi Singkat:</label>
-            <textarea
-              value={form.deskripsiSingkat}
-              onChange={(e) => setForm({ ...form, deskripsiSingkat: e.target.value })}
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              rows="3"
-              placeholder="Masukkan deskripsi singkat"
-            ></textarea>
-          </div>
-
-          {/* Deskripsi Panjang */}
-          <div>
-            <label className="block font-semibold text-gray-700">Deskripsi Panjang:</label>
-            <textarea
-              value={form.deskripsiPanjang}
-              onChange={(e) => setForm({ ...form, deskripsiPanjang: e.target.value })}
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              rows="6"
-              placeholder="Masukkan deskripsi panjang"
-            ></textarea>
-          </div>
-
-          {/* Gambar */}
-          <div>
-            <label className="block font-semibold text-gray-700">Gambar:</label>
-            <input
-              type="file"
-              onChange={(e) => setForm({ ...form, gambar: e.target.files[0] })}
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          {/* Submit Button */}
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-center mb-6">About List</h2>
+        <div className="flex justify-end mb-4">
           <button
-            type="submit"
-            className="w-full bg-blue-500 text-white font-semibold py-3 rounded-lg mt-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onClick={toggleModal}
+            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-all"
           >
-            Submit
+            Add About
           </button>
         </div>
-      </form>
+        <table className="w-full table-auto border-collapse border border-gray-200">
+          <thead>
+            <tr className="bg-gray-200 text-left">
+              <th className="border border-gray-300 px-4 py-2">#</th>
+              <th className="border border-gray-300 px-4 py-2">Judul</th>
+              <th className="border border-gray-300 px-4 py-2">Deskripsi Singkat</th>
+              <th className="border border-gray-300 px-4 py-2">Deskripsi Panjang</th>
+              <th className="border border-gray-300 px-4 py-2">Gambar</th>
+              <th className="border border-gray-300 px-4 py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item, index) => (
+              <tr key={index} className="hover:bg-gray-100">
+                <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
+                <td className="border border-gray-300 px-4 py-2">{item.judul}</td>
+                <td className="border border-gray-300 px-4 py-2">{item.deskripsiSingkat}</td>
+                <td className="border border-gray-300 px-4 py-2">{item.deskripsiPanjang}</td>
+                <td className="border border-gray-300 px-4 py-2 text-center">
+                  <img
+                    src={`/${item.gambar}`}
+                    alt={item.judul}
+                    className="h-12 w-12 object-cover rounded-md mx-auto"
+                  />
+                </td>
+                <td className="border border-gray-300 px-4 py-2 text-center">
+                  <button
+                    className="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 mr-2 transition-all"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition-all"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 className="text-xl font-bold mb-4">Add About</h3>
+            <div className="mb-4">
+              <label className="block text-sm font-bold mb-2">Judul:</label>
+              <input
+                type="text"
+                name="judul"
+                value={newAbout.judul}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border rounded"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-bold mb-2">Deskripsi Singkat:</label>
+              <textarea
+                name="deskripsiSingkat"
+                value={newAbout.deskripsiSingkat}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border rounded"
+              ></textarea>
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-bold mb-2">Deskripsi Panjang:</label>
+              <textarea
+                name="deskripsiPanjang"
+                value={newAbout.deskripsiPanjang}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border rounded"
+              ></textarea>
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-bold mb-2">Gambar:</label>
+              <input
+                type="file"
+                name="gambar"
+                onChange={handleFileChange}
+                className="w-full px-3 py-2 border rounded"
+              />
+            </div>
+            <div className="flex justify-end space-x-2">
+              <button
+                onClick={toggleModal}
+                className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAddAbout}
+                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-all"
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default About;
+export default AboutList;
