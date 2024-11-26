@@ -17,6 +17,8 @@ const AboutList = () => {
   ]);
 
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
   const [newAbout, setNewAbout] = useState({
     judul: "",
     deskripsiSingkat: "",
@@ -32,6 +34,8 @@ const AboutList = () => {
       deskripsiPanjang: "",
       gambar: "",
     });
+    setIsEditing(false);
+    setEditIndex(null);
   };
 
   const handleInputChange = (e) => {
@@ -44,8 +48,26 @@ const AboutList = () => {
   };
 
   const handleAddAbout = () => {
-    setData([...data, newAbout]);
+    if (isEditing) {
+      const updatedData = [...data];
+      updatedData[editIndex] = newAbout;
+      setData(updatedData);
+    } else {
+      setData([...data, newAbout]);
+    }
     toggleModal();
+  };
+
+  const handleEdit = (index) => {
+    setNewAbout(data[index]);
+    setEditIndex(index);
+    setIsEditing(true);
+    setModalOpen(true);
+  };
+
+  const handleDelete = (index) => {
+    const updatedData = data.filter((_, i) => i !== index);
+    setData(updatedData);
   };
 
   return (
@@ -87,11 +109,13 @@ const AboutList = () => {
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-center">
                   <button
+                    onClick={() => handleEdit(index)}
                     className="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 mr-2 transition-all"
                   >
                     Edit
                   </button>
                   <button
+                    onClick={() => handleDelete(index)}
                     className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition-all"
                   >
                     Delete
@@ -107,7 +131,9 @@ const AboutList = () => {
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h3 className="text-xl font-bold mb-4">Add About</h3>
+            <h3 className="text-xl font-bold mb-4">
+              {isEditing ? "Edit About" : "Add About"}
+            </h3>
             <div className="mb-4">
               <label className="block text-sm font-bold mb-2">Judul:</label>
               <input
@@ -156,7 +182,7 @@ const AboutList = () => {
                 onClick={handleAddAbout}
                 className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-all"
               >
-                Add
+                {isEditing ? "Save Changes" : "Add"}
               </button>
             </div>
           </div>
