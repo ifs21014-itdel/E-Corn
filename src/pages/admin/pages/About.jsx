@@ -17,7 +17,6 @@ const AboutList = () => {
   const fetchData = async () => {
     try {
       const fetchedData = await getAll();
-      console.log(fetchedData);
       const updatedData = fetchedData.map(item => ({
         ...item,
         gambarUrl: `http://localhost:3000/uploads/${item.gambar}`,
@@ -30,7 +29,6 @@ const AboutList = () => {
 
   useEffect(() => {
     fetchData();
-
   }, []);
 
   const toggleModal = () => {
