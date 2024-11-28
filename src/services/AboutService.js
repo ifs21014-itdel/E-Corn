@@ -1,12 +1,12 @@
 import api from "../utils/api";
 
 // Fungsi untuk membuat data baru (Create)
-export const create = async (judul, deskripsiSingkat, deskripsiPanjang, gambar) => {
+export const create = async (judul, deskripsi_singkat, deskripsi_panjang, gambar) => {
   try {
     const formData = new FormData(); // Menggunakan FormData untuk mengunggah file
     formData.append("judul", judul);
-    formData.append("deskripsiSingkat", deskripsiSingkat);
-    formData.append("deskripsiPanjang", deskripsiPanjang);
+    formData.append("deskripsiSingkat", deskripsi_singkat);
+    formData.append("deskripsiPanjang", deskripsi_panjang);
     formData.append("gambar", gambar);
 
     const response = await api.post("/about/", formData, {
@@ -41,15 +41,16 @@ export const getById = async (id) => {
 };
 
 // Fungsi untuk memperbarui data "About" (Update)
-export const update = async (id, judul, deskripsiSingkat, deskripsiPanjang, gambar) => {
+export const update = async (id, judul, deskripsi_singkat, deskripsi_panjang, gambar) => {
   try {
     const formData = new FormData();
     formData.append("judul", judul);
-    formData.append("deskripsiSingkat", deskripsiSingkat);
-    formData.append("deskripsiPanjang", deskripsiPanjang);
+    formData.append("deskripsiSingkat", deskripsi_singkat);
+    formData.append("deskripsiPanjang", deskripsi_panjang);
     if (gambar) {
       formData.append("gambar", gambar);
     }
+    console.log(id);
 
     const response = await api.put(`/about/${id}`, formData, {
       headers: {
