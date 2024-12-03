@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react'
+import { getAll } from '../../services/AboutService'
 import { Link } from 'react-router-dom'
 
-import pic1 from '../../assets/pic1.png'
+
 import pic2 from '../../assets/pic2.png'
 import pic3 from '../../assets/pic3.png'
 import pic4 from '../../assets/pic4.png'
@@ -11,29 +13,70 @@ import pic8 from '../../assets/pic8.png'
 import pic9 from '../../assets/pic9.png'
 
 export default function Home() {
+  const [aboutData, setAboutData] = useState([])  
+  const [loading, setLoading] = useState(true) 
+  const [error, setError] = useState(null)
+
+  // Fungsi untuk mengambil data dari API
+  const fetchData = async () => {
+    try {
+      const data = await getAll()
+      setAboutData(data) // Simpan data di state
+    } catch (err) {
+      setError('Terjadi kesalahan saat mengambil data') // Set error jika gagal
+    } finally {
+      setLoading(false) // Set loading false setelah selesai mengambil data
+    }
+  }
+
+  // Gunakan useEffect untuk mengambil data ketika komponen pertama kali dimuat
+  useEffect(() => {
+    fetchData()
+  }, []) // Empty array berarti hanya sekali ketika komponen dimuat
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-lg font-semibold text-gray-600">Loading...</div>
+      </div>
+    ) // Tampilkan loading jika data masih dalam proses
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-lg font-semibold text-red-600">{error}</div>
+      </div>
+    ) // Tampilkan error jika ada masalah saat mengambil data
+  }
+
+  // Pastikan data tersedia dan tidak kosong
+  const aboutItem = aboutData[0] || {}
+
   return (
     <div className="container mx-auto p-5 space-y-5">
+      {/* Bagian Selamat Datang */}
       <section className="bg-white p-10 rounded-lg shadow-md mt-20 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="md:w-1/2 text-center md:text-left">
           <h1 className="text-3xl font-bold text-black mb-4">
-            Selamat Datang di E-Corn
+            Mengapa E-Corn?
           </h1>
           <p className="text-gray-700 mb-6">
-            Yuk belajar cara mengelola limbah jagung jadi barang berguna! Mulai
-            dari tongkol jagung yang bisa jadi makanan hewan, pupuk tanaman atau
-            hiasan unik, sampai daunnya yang bisa dijadikan bahan kompos. Dengan
-            cara yang mudah diikuti, biar kita semua bantu menjaga bumi.
+            {aboutItem.deskripsi_singkat || "Yuk belajar cara mengelola limbah jagung jadi barang berguna!"}
           </p>
           <button className="bg-yellow-600 text-white px-6 py-2 rounded font-bold hover:bg-yellow-700 transition">
             Selengkapnya
           </button>
         </div>
         <div className="md:w-1/2 flex justify-center">
-          <img
-            src={pic1}
-            alt="Hero"
-            className="w-full max-w-xs rounded-md shadow-md"
-          />
+          {/* Menampilkan gambar pertama dari API */}
+          {aboutItem.gambar1 && (
+            <img
+              src={`http://localhost:3000/uploads/${aboutItem.gambar1}`}
+              alt="Hero"
+              className="w-full max-w-xs rounded-md shadow-md"
+            />
+          )}
         </div>
       </section>
 

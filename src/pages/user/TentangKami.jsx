@@ -1,82 +1,108 @@
-import logo from '../../assets/logo.png'
-import pic14 from '../../assets/pic14.jpeg'
-import pic15 from '../../assets/pic15.jpeg'
-import pic16 from '../../assets/pic16.jpeg'
-import pic17 from '../../assets/pic17.jpeg'
-
-import React from 'react'
+import { useState, useEffect } from 'react';
+import { getAll } from '../../services/AboutService'; 
 
 export default function TentangKami() {
+  const [aboutData, setAboutData] = useState([]);  
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
+
+  // Fungsi untuk mengambil data dari API
+  const fetchData = async () => {
+    try {
+      const data = await getAll();
+      console.log(data);
+      setAboutData(data); // Simpan data di state
+    } catch (err) {
+      setError('Terjadi kesalahan saat mengambil data'); // Set error jika gagal
+    } finally {
+      setLoading(false); // Set loading false setelah selesai mengambil data
+    }
+  };
+
+  // Gunakan useEffect untuk mengambil data ketika komponen pertama kali dimuat
+  useEffect(() => {
+    fetchData();
+  }, []); // Empty array berarti hanya sekali ketika komponen dimuat
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-lg font-semibold text-gray-600">Loading...</div>
+      </div>
+    ); // Tampilkan loading jika data masih dalam proses
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-lg font-semibold text-red-600">{error}</div>
+      </div>
+    ); // Tampilkan error jika ada masalah saat mengambil data
+  }
+
   return (
-    <div className="container mx-auto p-20">
-      {/* Bagian Judul "Tentang Kami" di luar warna hijau */}
-      <h2 className="text-2xl font-bold text-center mb-4">Tentang Kami</h2>
+    <div className="container mx-auto p-8 md:p-16">
+      {/* Bagian Judul "Tentang Kami" */}
+      <h2 className="text-4xl font-bold text-center text-green-900 mb-8 pt-20 ">Tentang Kami</h2>
 
       {/* Bagian Atas dengan Latar Hijau */}
       <div
-        className="bg-green-800 text-white rounded-lg p-5 mb-5 text-center mx-auto"
-        style={{ maxWidth: '80%' }}
+        className="bg-gradient-to-r from-green-600 to-green-800 text-white rounded-xl p-8 mb-8 text-center mx-auto shadow-xl transform transition-all hover:scale-105"
+        style={{ maxWidth: '85%' }}
       >
-        <div
-          className="d-flex justify-content-center gap-3 mb-4"
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '10px',
-          }}
-        >
-          {/* Galeri Gambar */}
-          {[pic14, pic15, pic16, pic17].map((src, index) => (
-            <img
-              key={index}
-              src={src}
-              alt={`Corn Image ${index + 1}`}
-              className="img-thumbnail rounded mx-1"
-              style={{
-                width: '100px',
-                height: '100px',
-                objectFit: 'cover',
-                borderRadius: '10px',
-              }}
-            />
-          ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+          {/* Menambahkan 4 gambar di dalam grid */}
+          {aboutData[0]?.gambar1 && (
+            <div className="group relative">
+              <img
+                src={`http://localhost:3000/uploads/${aboutData[0]?.gambar1}`} // URL gambar yang dinamis
+                alt="Gambar 1"
+                className="rounded-xl w-full h-48 object-cover shadow-lg group-hover:scale-105 transition-all duration-300"
+              />
+            </div>
+          )}
+          {aboutData[0]?.gambar2 && (
+            <div className="group relative">
+              <img
+                src={`http://localhost:3000/uploads/${aboutData[0]?.gambar2}`} // URL gambar yang dinamis
+                alt="Gambar 2"
+                className="rounded-xl w-full h-48 object-cover shadow-lg group-hover:scale-105 transition-all duration-300"
+              />
+            </div>
+          )}
+          {aboutData[0]?.gambar3 && (
+            <div className="group relative">
+              <img
+                src={`http://localhost:3000/uploads/${aboutData[0]?.gambar3}`} // URL gambar yang dinamis
+                alt="Gambar 3"
+                className="rounded-xl w-full h-48 object-cover shadow-lg group-hover:scale-105 transition-all duration-300"
+              />
+            </div>
+          )}
+          {aboutData[0]?.gambar4 && (
+            <div className="group relative">
+              <img
+                src={`http://localhost:3000/uploads/${aboutData[0]?.gambar4}`} // URL gambar yang dinamis
+                alt="Gambar 4"
+                className="rounded-xl w-full h-48 object-cover shadow-lg group-hover:scale-105 transition-all duration-300"
+              />
+            </div>
+          )}
         </div>
-        <h4 className="text-xl font-semibold mb-2">
-          Membangun Masa Depan Pertanian Melalui Pengetahuan dan Inovasi
+        {/* Judul dan Deskripsi dari data yang diambil */}
+        <h4 className="text-3xl font-semibold mb-4">
+          {aboutData[0]?.judul || "Judul Tidak Tersedia"}
         </h4>
-        <p className="leading-relaxed px-4">
-          Platform ini bertujuan untuk meningkatkan pengetahuan petani dalam
-          pengelolaan limbah pertanian, sehingga mereka dapat memanfaatkannya
-          secara lebih efektif dan berkelanjutan. Melalui edukasi platform ini
-          akan membantu petani mengolah limbah organik menjadi sumber daya yang
-          berguna, seperti pupuk kompos atau bahan pakan ternak, yang tidak
-          hanya mendukung produktivitas pertanian, tetapi juga berkontribusi
-          pada pelestarian lingkungan.
+        <p className="leading-relaxed text-lg px-4">
+          {aboutData[0]?.deskripsi_singkat || "Deskripsi tidak tersedia."}
         </p>
       </div>
 
-      {/* Bagian Bawah */}
-      <div className="text-center">
-        <img
-          src={pic15}
-          alt="Large Corn Image"
-          className="img-fluid rounded mb-4 mx-auto"
-          style={{ maxWidth: '80%', height: 'auto' }}
-        />
-        <h2 className="text-2xl font-bold mt-3 mb-2">Tentang Kami</h2>
-        <h4 className="text-xl font-semibold mb-2">
-          Membangun Masa Depan Pertanian Melalui Pengetahuan dan Inovasi
-        </h4>
-        <p className="leading-relaxed px-4">
-          Platform ini bertujuan untuk meningkatkan pengetahuan petani dalam
-          pengelolaan limbah pertanian, sehingga mereka dapat memanfaatkannya
-          secara lebih efektif dan berkelanjutan. Melalui edukasi platform ini
-          akan membantu petani mengolah limbah organik menjadi sumber daya yang
-          berguna, seperti pupuk kompos atau bahan pakan ternak, yang tidak
-          hanya mendukung produktivitas pertanian, tetapi juga berkontribusi
-          pada pelestarian lingkungan.
-        </p>
+      {/* Bagian Bawah Deskripsi Detail */}
+      <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-xl">
+   
+        <p className="leading-relaxed text-gray-700">{aboutData[0]?.deskripsi_panjang || "Deskripsi lengkap tidak tersedia."}</p>
       </div>
     </div>
-  )
+  );
 }

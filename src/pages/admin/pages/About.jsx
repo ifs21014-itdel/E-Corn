@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { create, getAll, update, remove } from "../../../services/AboutService";
+import { getAll, update, remove } from "../../../services/AboutService";
 
 const AboutList = () => {
   const [data, setData] = useState([]);
@@ -11,7 +11,10 @@ const AboutList = () => {
     judul: "",
     deskripsi_singkat: "",
     deskripsi_panjang: "",
-    gambar: null,
+    gambar1: null,
+    gambar2: null,
+    gambar3: null,
+    gambar4: null,
   });
 
   const fetchData = async () => {
@@ -19,7 +22,12 @@ const AboutList = () => {
       const fetchedData = await getAll();
       const updatedData = fetchedData.map(item => ({
         ...item,
-        gambarUrl: `http://localhost:3000/uploads/${item.gambar}`,
+        gambarUrls: {
+          gambar1: item.gambar1 ? `http://localhost:3000/uploads/${item.gambar1}` : null,
+          gambar2: item.gambar2 ? `http://localhost:3000/uploads/${item.gambar2}` : null,
+          gambar3: item.gambar3 ? `http://localhost:3000/uploads/${item.gambar3}` : null,
+          gambar4: item.gambar4 ? `http://localhost:3000/uploads/${item.gambar4}` : null,
+        }
       }));
       setData(updatedData);
     } catch (error) {
@@ -37,7 +45,10 @@ const AboutList = () => {
       judul: "",
       deskripsi_singkat: "",
       deskripsi_panjang: "",
-      gambar: null,
+      gambar1: null,
+      gambar2: null,
+      gambar3: null,
+      gambar4: null,
     });
     setIsEditing(false);
     setEditIndex(null);
@@ -50,30 +61,23 @@ const AboutList = () => {
   };
 
   const handleFileChange = (e) => {
-    setNewAbout({ ...newAbout, gambar: e.target.files[0] });
-  };
-
-  const handleAddAbout = async () => {
-    try {
-      if (isEditing) {
-        const updatedData = await update(editItemId, newAbout.judul, newAbout.deskripsi_singkat, newAbout.deskripsi_panjang, newAbout.gambar);
-        const updatedDataList = [...data];
-        updatedDataList[editIndex] = updatedData;
-        setData(updatedDataList);
-      } else {
-        const newAboutData = await create(newAbout.judul, newAbout.deskripsi_singkat, newAbout.deskripsi_panjang, newAbout.gambar);
-        setData([...data, newAboutData]);
-      }
-      toggleModal();
-      fetchData();
-    } catch (error) {
-      console.error("Error saving data", error);
-      alert("Gagal menyimpan data");
-    }
+    const { name, files } = e.target;
+    setNewAbout({
+      ...newAbout,
+      [name]: files[0], // Assuming single file upload per field
+    });
   };
 
   const handleEdit = (index) => {
-    setNewAbout(data[index]);
+    setNewAbout({
+      judul: data[index].judul,
+      deskripsi_singkat: data[index].deskripsi_singkat,
+      deskripsi_panjang: data[index].deskripsi_panjang,
+      gambar1: data[index].gambar1,
+      gambar2: data[index].gambar2,
+      gambar3: data[index].gambar3,
+      gambar4: data[index].gambar4,
+    });
     setEditIndex(index);
     setEditItemId(data[index].id);
     setIsEditing(true);
@@ -93,18 +97,31 @@ const AboutList = () => {
     }
   };
 
+  const handleAddAbout = async () => {
+    try {
+      if (isEditing) {
+        const updatedData = await update(editItemId, newAbout.judul, newAbout.deskripsi_singkat, newAbout.deskripsi_panjang, newAbout.gambar1, newAbout.gambar2, newAbout.gambar3, newAbout.gambar4);
+        const updatedDataList = [...data];
+        updatedDataList[editIndex] = updatedData;
+        setData(updatedDataList);
+      }
+      toggleModal();
+      fetchData();
+    } catch (error) {
+      console.error("Error saving data", error);
+      alert("Gagal menyimpan data");
+    }
+  };
+
+  // Helper function to truncate long text
+  const truncateText = (text, length = 80) => {
+    return text.length > length ? text.substring(0, length) + "..." : text;
+  };
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+      <div className="max-w-10xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center mb-6">About List</h2>
-        <div className="flex justify-end mb-4">
-          <button
-            onClick={toggleModal}
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-all"
-          >
-            Add About
-          </button>
-        </div>
         <table className="w-full table-auto border-collapse border border-gray-200">
           <thead>
             <tr className="bg-gray-200 text-left">
@@ -112,7 +129,10 @@ const AboutList = () => {
               <th className="border border-gray-300 px-4 py-2">Judul</th>
               <th className="border border-gray-300 px-4 py-2">Deskripsi Singkat</th>
               <th className="border border-gray-300 px-4 py-2">Deskripsi Panjang</th>
-              <th className="border border-gray-300 px-4 py-2">Gambar</th>
+              <th className="border border-gray-300 px-4 py-2">Gambar 1</th>
+              <th className="border border-gray-300 px-4 py-2">Gambar 2</th>
+              <th className="border border-gray-300 px-4 py-2">Gambar 3</th>
+              <th className="border border-gray-300 px-4 py-2">Gambar 4</th>
               <th className="border border-gray-300 px-4 py-2">Actions</th>
             </tr>
           </thead>
@@ -121,14 +141,51 @@ const AboutList = () => {
               <tr key={index} className="hover:bg-gray-100">
                 <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
                 <td className="border border-gray-300 px-4 py-2">{item.judul}</td>
-                <td className="border border-gray-300 px-4 py-2">{item.deskripsi_singkat}</td>
-                <td className="border border-gray-300 px-4 py-2">{item.deskripsi_panjang}</td>
+                <td className="border border-gray-300 px-4 py-2">{truncateText(item.deskripsi_singkat)}</td>
+                <td className="border border-gray-300 px-4 py-2">{truncateText(item.deskripsi_panjang, 120)}</td>
                 <td className="border border-gray-300 px-4 py-2 text-center">
-                  <img
-                    src={item.gambarUrl}
-                    alt={item.judul}
-                    className="h-12 w-12 object-cover rounded-md mx-auto"
-                  />
+                  {item.gambarUrls.gambar1 ? (
+                    <img
+                      src={item.gambarUrls.gambar1}
+                      alt="Gambar 1"
+                      className="h-12 w-12 object-cover rounded-md mx-auto"
+                    />
+                  ) : (
+                    <span>No image</span>
+                  )}
+                </td>
+                <td className="border border-gray-300 px-4 py-2 text-center">
+                  {item.gambarUrls.gambar2 ? (
+                    <img
+                      src={item.gambarUrls.gambar2}
+                      alt="Gambar 2"
+                      className="h-12 w-12 object-cover rounded-md mx-auto"
+                    />
+                  ) : (
+                    <span>No image</span>
+                  )}
+                </td>
+                <td className="border border-gray-300 px-4 py-2 text-center">
+                  {item.gambarUrls.gambar3 ? (
+                    <img
+                      src={item.gambarUrls.gambar3}
+                      alt="Gambar 3"
+                      className="h-12 w-12 object-cover rounded-md mx-auto"
+                    />
+                  ) : (
+                    <span>No image</span>
+                  )}
+                </td>
+                <td className="border border-gray-300 px-4 py-2 text-center">
+                  {item.gambarUrls.gambar4 ? (
+                    <img
+                      src={item.gambarUrls.gambar4}
+                      alt="Gambar 4"
+                      className="h-12 w-12 object-cover rounded-md mx-auto"
+                    />
+                  ) : (
+                    <span>No image</span>
+                  )}
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-center">
                   <button
@@ -152,7 +209,7 @@ const AboutList = () => {
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+          <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full">
             <h3 className="text-xl font-bold mb-4">{isEditing ? "Edit About" : "Add About"}</h3>
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700">Judul</label>
@@ -182,14 +239,17 @@ const AboutList = () => {
                 className="w-full px-4 py-2 border border-gray-300 rounded-md"
               />
             </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Gambar</label>
-              <input
-                type="file"
-                onChange={handleFileChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
+            {['gambar1', 'gambar2', 'gambar3', 'gambar4'].map((gambar, index) => (
+              <div className="mb-4" key={index}>
+                <label className="block text-sm font-medium text-gray-700">{`Gambar ${index + 1}`}</label>
+                <input
+                  type="file"
+                  name={gambar}
+                  onChange={handleFileChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
+                />
+              </div>
+            ))}
             <div className="flex justify-between">
               <button
                 onClick={toggleModal}

@@ -1,13 +1,18 @@
 import api from "../utils/api";
 
-// Fungsi untuk membuat data baru (Create)
-export const create = async (judul, deskripsi_singkat, deskripsi_panjang, gambar) => {
+
+export const create = async (judul, deskripsi_singkat, deskripsi_panjang, gambar1, gambar2, gambar3, gambar4) => {
   try {
-    const formData = new FormData(); // Menggunakan FormData untuk mengunggah file
+    const formData = new FormData(); 
     formData.append("judul", judul);
     formData.append("deskripsiSingkat", deskripsi_singkat);
     formData.append("deskripsiPanjang", deskripsi_panjang);
-    formData.append("gambar", gambar);
+
+    // Menambahkan gambar jika ada
+    if (gambar1) formData.append("gambar1", gambar1);
+    if (gambar2) formData.append("gambar2", gambar2);
+    if (gambar3) formData.append("gambar3", gambar3);
+    if (gambar4) formData.append("gambar4", gambar4);
 
     const response = await api.post("/about/", formData, {
       headers: {
@@ -20,7 +25,7 @@ export const create = async (judul, deskripsi_singkat, deskripsi_panjang, gambar
   }
 };
 
-// Fungsi untuk mendapatkan semua data "About" (Read)
+
 export const getAll = async () => {
   try {
     const response = await api.get("/about/");
@@ -30,7 +35,7 @@ export const getAll = async () => {
   }
 };
 
-// Fungsi untuk mendapatkan detail data "About" berdasarkan ID
+
 export const getById = async (id) => {
   try {
     const response = await api.get(`/about/${id}`);
@@ -40,16 +45,20 @@ export const getById = async (id) => {
   }
 };
 
-// Fungsi untuk memperbarui data "About" (Update)
-export const update = async (id, judul, deskripsi_singkat, deskripsi_panjang, gambar) => {
+
+export const update = async (id, judul, deskripsi_singkat, deskripsi_panjang, gambar1, gambar2, gambar3, gambar4) => {
   try {
     const formData = new FormData();
     formData.append("judul", judul);
     formData.append("deskripsiSingkat", deskripsi_singkat);
     formData.append("deskripsiPanjang", deskripsi_panjang);
-    if (gambar) {
-      formData.append("gambar", gambar);
-    }
+
+    // Menambahkan gambar jika ada
+    if (gambar1) formData.append("gambar1", gambar1);
+    if (gambar2) formData.append("gambar2", gambar2);
+    if (gambar3) formData.append("gambar3", gambar3);
+    if (gambar4) formData.append("gambar4", gambar4);
+
     console.log(id);
 
     const response = await api.put(`/about/${id}`, formData, {
@@ -63,7 +72,7 @@ export const update = async (id, judul, deskripsi_singkat, deskripsi_panjang, ga
   }
 };
 
-// Fungsi untuk menghapus data "About" (Delete)
+
 export const remove = async (id) => {
   try {
     const response = await api.delete(`/about/${id}`);
