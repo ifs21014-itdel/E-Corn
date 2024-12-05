@@ -135,7 +135,14 @@ const EducationList = () => {
                 <td className="border border-gray-300 px-4 py-2">{item.content}</td>
                 <td className="border border-gray-300 px-4 py-2">{item.audio_url}</td>
                 <td className="border border-gray-300 px-4 py-2">{item.video_url}</td>
-                <td className="border border-gray-300 px-4 py-2">{item.image_url}</td>
+                <td className="border border-gray-300 px-4 py-2">
+                <img
+                  src={`http://localhost:3000/uploads/${item.image_url}`}
+                  alt={item.title}
+                  className="w-20 h-20 object-cover"
+                />
+              </td>
+
                 <td className="border border-gray-300 px-4 py-2 text-center">
                   <button
                     onClick={() => handleEdit(index)}
