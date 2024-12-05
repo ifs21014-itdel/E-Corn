@@ -19,7 +19,7 @@ import Sidebar from "./pages/admin/components/Sidebar";
 import User from "./pages/admin/pages/User";
 import AdminLogin from "./pages/admin/pages/AdminLogin";
 import About from "./pages/admin/pages/About";
-import AdminEdukasi from "./pages/admin/pages/AdminEdukasi";
+import Education from "./pages/admin/pages/Education";
 
 
 const router = createBrowserRouter([
@@ -173,7 +173,7 @@ const router = createBrowserRouter([
       <div className="flex">
         <Sidebar /> {}
         <div className="flex-grow">
-          <AdminEdukasi /> {}
+          <Education /> {}
         </div>
       </div>
     ),
