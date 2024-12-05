@@ -1,37 +1,55 @@
-import api from "../utils/api";
+import axios from "axios";
 
-export const create = async (title, content, audio_url, video_url, image_url) => {
-  try {
-    const response = await api.post("/education/", { title, content, audio_url, video_url, image_url });
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.error || "Failed to create Education data.");
-  }
-};
+const API_URL = "http://localhost:5000/education"; // Ganti dengan URL backend Anda
 
+// Mengambil semua data pendidikan
 export const getAll = async () => {
   try {
-    const response = await api.get("/education/");
+    const response = await axios.get(API_URL);
     return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.error || "Failed to fetch Education data.");
+    console.error("Error fetching data", error);
+    throw error;
   }
 };
 
-export const update = async (id, title, content, audio_url, video_url, image_url) => {
+// Menambahkan data pendidikan baru
+export const create = async (formData) => {
   try {
-    const response = await api.put(`/education/${id}`, { title, content, audio_url, video_url, image_url });
+    const response = await axios.post(API_URL, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Agar bisa mengirim FormData
+      },
+    });
     return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.error || `Failed to update Education data with ID ${id}.`);
+    console.error("Error creating data", error);
+    throw error;
   }
 };
 
+// Mengupdate data pendidikan
+export const update = async (id, formData) => {
+  try {
+    const response = await axios.put(`${API_URL}/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Agar bisa mengirim FormData
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating data", error);
+    throw error;
+  }
+};
+
+// Menghapus data pendidikan
 export const remove = async (id) => {
   try {
-    const response = await api.delete(`/education/${id}`);
+    const response = await axios.delete(`${API_URL}/${id}`);
     return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.error || `Failed to delete Education data with ID ${id}.`);
+    console.error("Error deleting data", error);
+    throw error;
   }
 };

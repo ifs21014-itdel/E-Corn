@@ -12,7 +12,7 @@ const EducationList = () => {
     content: "",
     audio_url: "",
     video_url: "",
-    image_url: "",
+    image: null, // Menyimpan file gambar
   });
 
   const fetchData = async () => {
@@ -35,7 +35,7 @@ const EducationList = () => {
       content: "",
       audio_url: "",
       video_url: "",
-      image_url: "",
+      image: null,
     });
     setIsEditing(false);
     setEditIndex(null);
@@ -47,29 +47,33 @@ const EducationList = () => {
     setNewEducation({ ...newEducation, [name]: value });
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setNewEducation({ ...newEducation, image: file });
+  };
+
   const handleAddEducation = async () => {
     try {
+      const formData = new FormData();
+      formData.append("title", newEducation.title);
+      formData.append("content", newEducation.content);
+      formData.append("audio_url", newEducation.audio_url);
+      formData.append("video_url", newEducation.video_url);
+
+      if (newEducation.image) {
+        formData.append("image", newEducation.image); // Menambahkan file gambar ke FormData
+      }
+
+      const response = isEditing
+        ? await update(editItemId, formData)  // Jika sedang mengedit
+        : await create(formData);  // Jika menambah baru
+
       if (isEditing) {
-        const updatedData = await update(
-          editItemId,
-          newEducation.title,
-          newEducation.content,
-          newEducation.audio_url,
-          newEducation.video_url,
-          newEducation.image_url
-        );
         const updatedDataList = [...data];
-        updatedDataList[editIndex] = updatedData;
+        updatedDataList[editIndex] = response;
         setData(updatedDataList);
       } else {
-        const newEducationData = await create(
-          newEducation.title,
-          newEducation.content,
-          newEducation.audio_url,
-          newEducation.video_url,
-          newEducation.image_url
-        );
-        setData([...data, newEducationData]);
+        setData([...data, response]);
       }
       toggleModal();
       fetchData();
@@ -156,7 +160,7 @@ const EducationList = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
             <h3 className="text-xl font-bold mb-4">{isEditing ? "Edit Education" : "Add Education"}</h3>
-            {["title", "content", "audio_url", "video_url", "image_url"].map((field) => (
+            {["title", "content", "audio_url", "video_url"].map((field) => (
               <div className="mb-4" key={field}>
                 <label className="block text-sm font-medium text-gray-700">{field}</label>
                 <input
@@ -168,6 +172,15 @@ const EducationList = () => {
                 />
               </div>
             ))}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">Image</label>
+              <input
+                type="file"
+                name="image"
+                onChange={handleImageChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
             <div className="flex justify-between">
               <button
                 onClick={toggleModal}
