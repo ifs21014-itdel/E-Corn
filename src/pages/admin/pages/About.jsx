@@ -115,7 +115,7 @@ const AboutList = () => {
 
   // Helper function to truncate long text
   const truncateText = (text, length = 80) => {
-    return text.length > length ? text.substring(0, length) + "..." : text;
+    return (text ?? "").length > length ? text.substring(0, length) + "..." : text;
   };
 
   return (
@@ -144,7 +144,7 @@ const AboutList = () => {
                 <td className="border border-gray-300 px-4 py-2">{truncateText(item.deskripsi_singkat)}</td>
                 <td className="border border-gray-300 px-4 py-2">{truncateText(item.deskripsi_panjang, 120)}</td>
                 <td className="border border-gray-300 px-4 py-2 text-center">
-                  {item.gambarUrls.gambar1 ? (
+                  {item.gambarUrls?.gambar1 ? (
                     <img
                       src={item.gambarUrls.gambar1}
                       alt="Gambar 1"
@@ -155,7 +155,7 @@ const AboutList = () => {
                   )}
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-center">
-                  {item.gambarUrls.gambar2 ? (
+                  {item.gambarUrls?.gambar2 ? (
                     <img
                       src={item.gambarUrls.gambar2}
                       alt="Gambar 2"
@@ -166,7 +166,7 @@ const AboutList = () => {
                   )}
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-center">
-                  {item.gambarUrls.gambar3 ? (
+                  {item.gambarUrls?.gambar3 ? (
                     <img
                       src={item.gambarUrls.gambar3}
                       alt="Gambar 3"
@@ -177,7 +177,7 @@ const AboutList = () => {
                   )}
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-center">
-                  {item.gambarUrls.gambar4 ? (
+                  {item.gambarUrls?.gambar4 ? (
                     <img
                       src={item.gambarUrls.gambar4}
                       alt="Gambar 4"
@@ -189,14 +189,14 @@ const AboutList = () => {
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-center">
                   <button
+                    className="bg-yellow-500 text-white px-4 py-2 rounded-lg mr-2"
                     onClick={() => handleEdit(index)}
-                    className="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 mr-2 transition-all"
                   >
                     Edit
                   </button>
                   <button
+                    className="bg-red-500 text-white px-4 py-2 rounded-lg"
                     onClick={() => handleDelete(index)}
-                    className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition-all"
                   >
                     Delete
                   </button>
@@ -205,68 +205,85 @@ const AboutList = () => {
             ))}
           </tbody>
         </table>
-      </div>
 
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full">
-            <h3 className="text-xl font-bold mb-4">{isEditing ? "Edit About" : "Add About"}</h3>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Judul</label>
-              <input
-                type="text"
-                name="judul"
-                value={newAbout.judul}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Deskripsi Singkat</label>
-              <textarea
-                name="deskripsi_singkat"
-                value={newAbout.deskripsi_singkat}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Deskripsi Panjang</label>
-              <textarea
-                name="deskripsi_panjang"
-                value={newAbout.deskripsi_panjang}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            {['gambar1', 'gambar2', 'gambar3', 'gambar4'].map((gambar, index) => (
-              <div className="mb-4" key={index}>
-                <label className="block text-sm font-medium text-gray-700">{`Gambar ${index + 1}`}</label>
+
+        {/* Modal for Add/Edit About */}
+        {isModalOpen && (
+          <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+              <h3 className="text-xl font-semibold mb-4">{isEditing ? "Edit About" : "Add New About"}</h3>
+              <div>
+                <label className="block mb-2">Judul</label>
+                <input
+                  type="text"
+                  name="judul"
+                  value={newAbout.judul}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border border-gray-300 rounded-md mb-4"
+                />
+                <label className="block mb-2">Deskripsi Singkat</label>
+                <input
+                  type="text"
+                  name="deskripsi_singkat"
+                  value={newAbout.deskripsi_singkat}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border border-gray-300 rounded-md mb-4"
+                />
+                <label className="block mb-2">Deskripsi Panjang</label>
+                <textarea
+                  name="deskripsi_panjang"
+                  value={newAbout.deskripsi_panjang}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border border-gray-300 rounded-md mb-4"
+                />
+                <label className="block mb-2">Gambar 1</label>
                 <input
                   type="file"
-                  name={gambar}
+                  name="gambar1"
                   onChange={handleFileChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
+                  className="w-full p-2 border border-gray-300 rounded-md mb-4"
                 />
+                <label className="block mb-2">Gambar 2</label>
+                <input
+                  type="file"
+                  name="gambar2"
+                  onChange={handleFileChange}
+                  className="w-full p-2 border border-gray-300 rounded-md mb-4"
+                />
+                <label className="block mb-2">Gambar 3</label>
+                <input
+                  type="file"
+                  name="gambar3"
+                  onChange={handleFileChange}
+                  className="w-full p-2 border border-gray-300 rounded-md mb-4"
+                />
+                <label className="block mb-2">Gambar 4</label>
+                <input
+                  type="file"
+                  name="gambar4"
+                  onChange={handleFileChange}
+                  className="w-full p-2 border border-gray-300 rounded-md mb-4"
+                />
+
+                <div className="flex justify-between mt-4">
+                  <button
+                    className="bg-gray-400 text-white px-4 py-2 rounded-lg"
+                    onClick={toggleModal}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+                    onClick={handleAddAbout}
+                  >
+                    {isEditing ? "Save Changes" : "Add About"}
+                  </button>
+                </div>
               </div>
-            ))}
-            <div className="flex justify-between">
-              <button
-                onClick={toggleModal}
-                className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleAddAbout}
-                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-              >
-                Save
-              </button>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
