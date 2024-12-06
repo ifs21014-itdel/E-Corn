@@ -12,7 +12,7 @@ const EducationList = () => {
     content: "",
     audio_url: "",
     video_url: "",
-    image: null, // Menyimpan file gambar
+    image: null,
   });
 
   const fetchData = async () => {
@@ -55,40 +55,42 @@ const EducationList = () => {
   const handleAddEducation = async () => {
     try {
       const formData = new FormData();
-      formData.append("title", newEducation.title);
-      formData.append("content", newEducation.content);
-      formData.append("audio_url", newEducation.audio_url);
-      formData.append("video_url", newEducation.video_url);
+      formData.append("title", newEducation.title || "");
+      formData.append("content", newEducation.content || "");
+      formData.append("audio_url", newEducation.audio_url || "");
+      formData.append("video_url", newEducation.video_url || "");
 
       if (newEducation.image) {
-        formData.append("image", newEducation.image); // Menambahkan file gambar ke FormData
+        formData.append("image", newEducation.image);
       }
 
-      const response = isEditing
-        ? await update(editItemId, formData)  // Jika sedang mengedit
-        : await create(formData);  // Jika menambah baru
-
+      let response;
       if (isEditing) {
+        // Jika sedang mengedit, kita gunakan editItemId untuk mengupdate
+        response = await update(editItemId, formData);
         const updatedDataList = [...data];
-        updatedDataList[editIndex] = response;
+        updatedDataList[editIndex] = response; // Update data pada index yang sesuai
         setData(updatedDataList);
       } else {
+        // Jika menambah data baru
+        response = await create(formData);
         setData([...data, response]);
       }
+
       toggleModal();
       fetchData();
     } catch (error) {
       console.error("Error saving data", error);
-      alert("Failed to save data");
+      alert("Gagal menyimpan data");
     }
   };
 
   const handleEdit = (index) => {
     setNewEducation(data[index]);
     setEditIndex(index);
-    setEditItemId(data[index].id);
-    setIsEditing(true);
-    setModalOpen(true);
+    setEditItemId(data[index].id); // Set editItemId ke ID item yang dipilih
+    setIsEditing(true); // Menandakan bahwa kita sedang dalam mode edit
+    setModalOpen(true); // Buka modal untuk editing
   };
 
   const handleDelete = async (index) => {
@@ -99,7 +101,7 @@ const EducationList = () => {
       fetchData();
     } catch (error) {
       console.error("Error deleting data", error);
-      alert("Failed to delete data");
+      alert("Gagal menghapus data");
     }
   };
 
@@ -136,13 +138,12 @@ const EducationList = () => {
                 <td className="border border-gray-300 px-4 py-2">{item.audio_url}</td>
                 <td className="border border-gray-300 px-4 py-2">{item.video_url}</td>
                 <td className="border border-gray-300 px-4 py-2">
-                <img
-                  src={`http://localhost:3000/uploads/${item.image_url}`}
-                  alt={item.title}
-                  className="w-20 h-20 object-cover"
-                />
-              </td>
-
+                  <img
+                    src={`http://localhost:3000/uploads/${item.image}`}
+                    alt={item.title}
+                    className="w-20 h-20 object-cover"
+                  />
+                </td>
                 <td className="border border-gray-300 px-4 py-2 text-center">
                   <button
                     onClick={() => handleEdit(index)}
