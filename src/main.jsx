@@ -20,6 +20,7 @@ import User from "./pages/admin/pages/User";
 import AdminLogin from "./pages/admin/pages/AdminLogin";
 import About from "./pages/admin/pages/About";
 import Education from "./pages/admin/pages/Education";
+import Features from "./pages/admin/pages/Features"
 
 
 const router = createBrowserRouter([
@@ -152,6 +153,17 @@ const router = createBrowserRouter([
         <Sidebar />
         <div className="flex-grow">
           <User/>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/admin/features",
+    element: (
+      <div className="flex">
+        <Sidebar />
+        <div className="flex-grow">
+          <Features/>
         </div>
       </div>
     ),

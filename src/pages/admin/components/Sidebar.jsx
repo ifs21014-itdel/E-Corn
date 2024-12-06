@@ -4,6 +4,7 @@ import {FaHome, FaUser, FaUsers, FaGraduationCap, FaCog, FaBars, FaSignOutAlt,
 import { MdOutlineArticle } from "react-icons/md"; 
 import { AiOutlineInfoCircle } from "react-icons/ai"; 
 import { Link, useNavigate } from "react-router-dom";
+import { FaCogs } from "react-icons/fa";
 
 const Sidebar = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -52,6 +53,15 @@ const Sidebar = ({ children }) => {
                 <FaUser className="text-xl" />
                 {isSidebarOpen && <span>Users</span>}
               </Link>
+            </li>
+            <li>
+            <Link
+              to="/admin/features"
+              className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
+            >
+              <FaCogs className="text-xl" />
+              {isSidebarOpen && <span>Features</span>}
+            </Link>
             </li>
             <li>
               <Link
