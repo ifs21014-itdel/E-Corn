@@ -70,4 +70,19 @@ export const getAll = async () => {
     console.error("Error fetching news:", error.response || error);
     throw error;
   }
+  
+};
+
+
+// Function to fetch a single news item by ID
+export const getById = async (id) => {
+  try {
+    const response = await axios.get(`${apiUrl}${id}`, {
+      headers: getRequestHeaders(),
+    });
+    return response.data;  // Mengembalikan data berita yang ditemukan
+  } catch (error) {
+    console.error("Error fetching news by ID:", error.response || error);
+    throw error;
+  }
 };
