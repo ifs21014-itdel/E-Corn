@@ -21,7 +21,7 @@ export const getByID = async (id) => {
 };
 
 // Fungsi untuk membuat topik
-export const create = async (formData) => {
+export const createTopic = async (formData) => {
   try {
     const response = await api.post("/topics/", formData, {
       headers: {
