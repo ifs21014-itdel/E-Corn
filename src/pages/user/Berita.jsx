@@ -52,7 +52,8 @@ const BeritaUtama = ({ berita }) => (
         <p className="text-[#F0F0F0] text-base leading-relaxed">
           {berita.content.length > 150 ? berita.content.slice(0, 150) + '...' : berita.content}
         </p>
-        <Link to={`/detail-berita${berita.id}`} className="text-[#FFD700] mt-4 block">
+        <Link to={`/detail-berita/${berita.id}`} className="text-[#FFD700] mt-4 block">
+        
           Baca Selengkapnya
         </Link>
       </div>

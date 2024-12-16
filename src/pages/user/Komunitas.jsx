@@ -17,22 +17,22 @@ export default function Komunitas() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchDiscussions = async () => {
-      try {
-        const topics = await getAllTopics();
-        const discussionsWithComments = await Promise.all(
-          topics.map(async (topic) => {
-            const comments = await getAllComments(topic.id);
-            return { ...topic, comments: comments || [] };
-          })
-        );
-        setDiscussions(discussionsWithComments);
-      } catch (error) {
-        console.error("Error fetching discussions and comments:", error);
-      }
-    };
+  const fetchDiscussions = async () => {
+    try {
+      const topics = await getAllTopics();
+      const discussionsWithComments = await Promise.all(
+        topics.map(async (topic) => {
+          const comments = await getAllComments(topic.id);
+          return { ...topic, comments: comments || [] };
+        })
+      );
+      setDiscussions(discussionsWithComments);
+    } catch (error) {
+      console.error("Error fetching discussions and comments:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchDiscussions();
   }, []);
 
@@ -45,14 +45,15 @@ export default function Komunitas() {
       formData.append("image", newImage);
 
       try {
-        const createdTopic = await createTopic(formData);
-        const topicWithComments = { ...createdTopic, comments: [] };
-        setDiscussions((prevDiscussions) => [...prevDiscussions, topicWithComments]);
+        await createTopic(formData);
         setNewTitle("");
         setNewContent("");
         setNewAuthor("");
         setNewImage(null);
         setIsModalOpen(false);
+
+        // Refresh discussions after adding a new topic
+        await fetchDiscussions();
         navigate("/komunitas");
       } catch (error) {
         console.error("Error adding discussion:", error);
@@ -79,15 +80,8 @@ export default function Komunitas() {
         // Update state selectedDiscussion
         setSelectedDiscussion((prev) => ({ ...prev, comments: updatedComments }));
 
-        // Update discussions state to reflect the new comment
-        setDiscussions((prevDiscussions) =>
-          prevDiscussions.map((discussion) =>
-            discussion.id === selectedDiscussion.id
-              ? { ...discussion, comments: updatedComments }
-              : discussion
-          )
-        );
-
+        // Refresh discussions after adding a new comment
+        await fetchDiscussions();
         setNewComment(""); // Clear the input
       } catch (error) {
         console.error("Error adding comment:", error);

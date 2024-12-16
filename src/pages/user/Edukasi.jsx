@@ -41,22 +41,7 @@ export default function Edukasi() {
         mendukung
       </h2>
 
-      {/* Category Section */}
-      <div className="text-center mb-10">
-        <div className="mb-6">
-          <button className="bg-[#8B5E34] text-white px-6 py-2 rounded font-bold">
-            Kategori
-          </button>
-        </div>
-        <div className="flex justify-center space-x-6">
-          {/* Add category buttons here */}
-        </div>
-        <div className="mt-6">
-          <button className="bg-[#8B5E34] text-white px-6 py-2 rounded font-bold">
-            Semua
-          </button>
-        </div>
-      </div>
+     
 
       {/* Articles Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
