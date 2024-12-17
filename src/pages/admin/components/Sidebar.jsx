@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {FaHome, FaUser, FaUsers, FaGraduationCap, FaCog, FaBars, FaSignOutAlt, 
+import {FaHome, FaUser, FaGraduationCap, FaCog, FaBars, FaSignOutAlt, 
 } from "react-icons/fa";
 import { MdOutlineArticle } from "react-icons/md"; 
 import { AiOutlineInfoCircle } from "react-icons/ai"; 
@@ -36,15 +36,7 @@ const Sidebar = ({ children }) => {
         {/* Sidebar items */}
         <div className="flex-grow flex flex-col">
           <ul className="space-y-2 mt-4">
-            <li>
-              <Link
-                to="/admin/home"
-                className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
-              >
-                <FaHome className="text-xl" />
-                {isSidebarOpen && <span>Home</span>}
-              </Link>
-            </li>
+            
             <li>
               <Link
                 to="/admin/users"
@@ -79,15 +71,6 @@ const Sidebar = ({ children }) => {
               >
                 <MdOutlineArticle className="text-xl" />
                 {isSidebarOpen && <span>Berita</span>}
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/komunitas"
-                className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
-              >
-                <FaUsers className="text-xl" />
-                {isSidebarOpen && <span>Komunitas</span>}
               </Link>
             </li>
             <li>
