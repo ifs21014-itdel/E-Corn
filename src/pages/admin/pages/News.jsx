@@ -15,13 +15,17 @@ const News = () => {
     image: null,
     source_url: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const fetchedData = await getAll();
       setData(fetchedData);
     } catch (error) {
       console.error("Error fetching data", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,12 +57,22 @@ const News = () => {
     setNewNews({ ...newNews, image: file });
   };
 
+  const validateForm = () => {
+    if (!newNews.title || !newNews.content || !newNews.date) {
+      alert("Please fill in all fields.");
+      return false;
+    }
+    return true;
+  };
+
   const handleAddNews = async () => {
+    if (!validateForm()) return;
+
     try {
       const formData = new FormData();
       let formattedDate = newNews.date;
 
-      // Validasi dan format tanggal sebelum dikirim
+      // Validate and format date before submission
       if (newNews.date) {
         const parsedDate = parseISO(newNews.date);
         if (!isNaN(parsedDate.getTime())) {
@@ -69,16 +83,14 @@ const News = () => {
         }
       }
 
-      formData.append("title", newNews.title || "");
-      formData.append("content", newNews.content || "");
+      formData.append("title", newNews.title);
+      formData.append("content", newNews.content);
       formData.append("date", formattedDate);
-      formData.append("source_url", newNews.source_url || "");
+      formData.append("source_url", newNews.source_url);
 
-      // Jika gambar diubah, simpan gambar baru, jika tidak, tetap gunakan gambar lama
+      // Append image only if changed
       if (newNews.image) {
         formData.append("image", newNews.image);
-      } else if (!isEditing && newNews.image === null) {
-        formData.append("image", null);  // Jika tidak ada gambar baru, jangan tambahkan field image
       }
 
       let response;
@@ -96,7 +108,7 @@ const News = () => {
       fetchData();
     } catch (error) {
       console.error("Error saving data", error);
-      alert("Gagal menyimpan data");
+      alert("Failed to save data");
     }
   };
 
@@ -116,13 +128,13 @@ const News = () => {
       fetchData();
     } catch (error) {
       console.error("Error deleting data", error);
-      alert("Gagal menghapus data");
+      alert("Failed to delete data");
     }
   };
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      <div className=" mx-auto bg-white p-6 rounded-lg shadow-md">
+      <div className="mx-auto bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center mb-6">News List</h2>
         <div className="flex justify-end mb-4">
           <button
@@ -132,49 +144,53 @@ const News = () => {
             Add News
           </button>
         </div>
-        <table className="w-full table-auto border-collapse border border-gray-200">
-          <thead>
-            <tr className="bg-gray-200 text-left">
-              <th className="border border-gray-300 px-4 py-2">#</th>
-              <th className="border border-gray-300 px-4 py-2">Title</th>
-              <th className="border border-gray-300 px-4 py-2">Content</th>
-              <th className="border border-gray-300 px-4 py-2">Date</th>
-              <th className="border border-gray-300 px-4 py-2">Image</th>
-              <th className="border border-gray-300 px-4 py-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((item, index) => (
-              <tr key={index} className="hover:bg-gray-100">
-                <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
-                <td className="border border-gray-300 px-4 py-2">{item.title}</td>
-                <td className="border border-gray-300 px-4 py-2">{item.content}</td>
-                <td className="border border-gray-300 px-4 py-2">{format(new Date(item.date), "yyyy-MM-dd")}</td>
-                <td className="border border-gray-300 px-4 py-2">
-                  <img
-                    src={`http://localhost:3000/${item.image_url}`}
-                    alt={item.image_url}
-                    className="w-20 h-20 object-cover"
-                  />
-                </td>
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  <button
-                    onClick={() => handleEdit(index)}
-                    className="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 mr-2"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(index)}
-                    className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
-                </td>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <table className="w-full table-auto border-collapse border border-gray-200">
+            <thead>
+              <tr className="bg-gray-200 text-left">
+                <th className="border border-gray-300 px-4 py-2">#</th>
+                <th className="border border-gray-300 px-4 py-2">Title</th>
+                <th className="border border-gray-300 px-4 py-2">Content</th>
+                <th className="border border-gray-300 px-4 py-2">Date</th>
+                <th className="border border-gray-300 px-4 py-2">Image</th>
+                <th className="border border-gray-300 px-4 py-2">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data.map((item, index) => (
+                <tr key={index} className="hover:bg-gray-100">
+                  <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
+                  <td className="border border-gray-300 px-4 py-2">{item.title}</td>
+                  <td className="border border-gray-300 px-4 py-2">{item.content}</td>
+                  <td className="border border-gray-300 px-4 py-2">{format(new Date(item.date), "yyyy-MM-dd")}</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    <img
+                      src={`http://localhost:3000/${item.image_url}`}
+                      alt={item.image_url}
+                      className="w-20 h-20 object-cover"
+                    />
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    <button
+                      onClick={() => handleEdit(index)}
+                      className="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 mr-2"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(index)}
+                      className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
 
       {isModalOpen && (
