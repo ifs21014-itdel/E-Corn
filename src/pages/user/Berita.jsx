@@ -60,7 +60,7 @@ const BeritaUtama = ({ berita }) => (
       {/* Kolom kanan gambar */}
       <div className="w-full lg:w-1/2">
         <img
-          src={berita.image || pic9}  // Gambar dari API, jika tidak ada gunakan gambar default
+          src={`http://localhost:3000/${berita.image_url}`}  // Gambar dari API, jika tidak ada gunakan gambar default
           alt="Berita Utama"
           className="rounded-lg w-full h-auto"
         />
@@ -74,7 +74,7 @@ const DaftarBerita = ({ data }) => (
     {data.map((berita) => (
       <div key={berita.id} className="bg-white p-4 rounded-lg shadow-md">
         <img
-          src={berita.image || pic9}  // Gambar berita
+          src={`http://localhost:3000/${berita.image_url}`}  // Gambar berita
           alt={berita.title}
           className="w-full h-48 object-cover rounded-lg mb-4"
         />

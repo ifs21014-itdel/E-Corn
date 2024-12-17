@@ -106,8 +106,8 @@ const EducationList = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <div className="p-6  min-h-screen">
+      <div className=" mx-auto bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center mb-6">Education List</h2>
         <div className="flex justify-end mb-4">
           <button

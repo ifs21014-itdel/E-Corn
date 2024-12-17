@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { create, getAll, update, remove } from "../../../services/NewsService";
-import { format } from "date-fns"; 
+import { format, parseISO } from "date-fns";
 
 const News = () => {
   const [data, setData] = useState([]);
@@ -56,15 +56,29 @@ const News = () => {
   const handleAddNews = async () => {
     try {
       const formData = new FormData();
-      const formattedDate = format(new Date(newNews.date), "yyyy-MM-dd");
-      
+      let formattedDate = newNews.date;
+
+      // Validasi dan format tanggal sebelum dikirim
+      if (newNews.date) {
+        const parsedDate = parseISO(newNews.date);
+        if (!isNaN(parsedDate.getTime())) {
+          formattedDate = format(parsedDate, "yyyy-MM-dd");
+        } else {
+          alert("Invalid date format.");
+          return;
+        }
+      }
+
       formData.append("title", newNews.title || "");
       formData.append("content", newNews.content || "");
-      formData.append("date", formattedDate); 
+      formData.append("date", formattedDate);
       formData.append("source_url", newNews.source_url || "");
-      
+
+      // Jika gambar diubah, simpan gambar baru, jika tidak, tetap gunakan gambar lama
       if (newNews.image) {
         formData.append("image", newNews.image);
+      } else if (!isEditing && newNews.image === null) {
+        formData.append("image", null);  // Jika tidak ada gambar baru, jangan tambahkan field image
       }
 
       let response;
@@ -108,7 +122,7 @@ const News = () => {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+      <div className=" mx-auto bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center mb-6">News List</h2>
         <div className="flex justify-end mb-4">
           <button
@@ -135,7 +149,7 @@ const News = () => {
                 <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
                 <td className="border border-gray-300 px-4 py-2">{item.title}</td>
                 <td className="border border-gray-300 px-4 py-2">{item.content}</td>
-                <td className="border border-gray-300 px-4 py-2">{item.date}</td>
+                <td className="border border-gray-300 px-4 py-2">{format(new Date(item.date), "yyyy-MM-dd")}</td>
                 <td className="border border-gray-300 px-4 py-2">
                   <img
                     src={`http://localhost:3000/${item.image_url}`}
@@ -184,7 +198,7 @@ const News = () => {
               <input
                 type="date"
                 name="date"
-                value={newNews.date}
+                value={newNews.date ? format(new Date(newNews.date), "yyyy-MM-dd") : ""}
                 onChange={handleInputChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md"
               />

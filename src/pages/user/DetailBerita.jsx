@@ -62,7 +62,7 @@ export default function DetailBerita() {
         }}
       >
         <img
-          src={berita.image || pic9} // Jika tidak ada gambar, tampilkan gambar default
+          src={`http://localhost:3000/${berita.image_url}`} // Jika tidak ada gambar, tampilkan gambar default
           alt={berita.title}
           style={{
             width: "100%",

@@ -1,13 +1,12 @@
 import { useState } from "react";
-import {FaHome, FaUser, FaGraduationCap, FaCog, FaBars, FaSignOutAlt, 
-} from "react-icons/fa";
+import { FaHome, FaUser, FaGraduationCap, FaCog, FaBars, FaSignOutAlt, FaCogs } from "react-icons/fa";
 import { MdOutlineArticle } from "react-icons/md"; 
 import { AiOutlineInfoCircle } from "react-icons/ai"; 
 import { Link, useNavigate } from "react-router-dom";
-import { FaCogs } from "react-icons/fa";
 
 const Sidebar = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [activeMenu, setActiveMenu] = useState(""); // Menyimpan menu aktif
   const navigate = useNavigate();
 
   const toggleSidebar = () => {
@@ -18,6 +17,11 @@ const Sidebar = ({ children }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     navigate("/admin/login");
+  };
+
+  // Fungsi untuk mengubah menu aktif
+  const handleMenuClick = (menu) => {
+    setActiveMenu(menu);
   };
 
   return (
@@ -36,29 +40,37 @@ const Sidebar = ({ children }) => {
         {/* Sidebar items */}
         <div className="flex-grow flex flex-col">
           <ul className="space-y-2 mt-4">
-            
             <li>
               <Link
                 to="/admin/users"
-                className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
+                onClick={() => handleMenuClick("users")}
+                className={`flex items-center space-x-4 p-3 rounded-md transition-all ${
+                  activeMenu === "users" ? "bg-gray-700" : "hover:bg-gray-700"
+                }`}
               >
                 <FaUser className="text-xl" />
                 {isSidebarOpen && <span>Users</span>}
               </Link>
             </li>
             <li>
-            <Link
-              to="/admin/features"
-              className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
-            >
-              <FaCogs className="text-xl" />
-              {isSidebarOpen && <span>Features</span>}
-            </Link>
+              <Link
+                to="/admin/features"
+                onClick={() => handleMenuClick("features")}
+                className={`flex items-center space-x-4 p-3 rounded-md transition-all ${
+                  activeMenu === "features" ? "bg-gray-700" : "hover:bg-gray-700"
+                }`}
+              >
+                <FaCogs className="text-xl" />
+                {isSidebarOpen && <span>Features</span>}
+              </Link>
             </li>
             <li>
               <Link
                 to="/admin/edukasi"
-                className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
+                onClick={() => handleMenuClick("edukasi")}
+                className={`flex items-center space-x-4 p-3 rounded-md transition-all ${
+                  activeMenu === "edukasi" ? "bg-gray-700" : "hover:bg-gray-700"
+                }`}
               >
                 <FaGraduationCap className="text-xl" />
                 {isSidebarOpen && <span>Edukasi</span>}
@@ -67,7 +79,10 @@ const Sidebar = ({ children }) => {
             <li>
               <Link
                 to="/admin/berita"
-                className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
+                onClick={() => handleMenuClick("berita")}
+                className={`flex items-center space-x-4 p-3 rounded-md transition-all ${
+                  activeMenu === "berita" ? "bg-gray-700" : "hover:bg-gray-700"
+                }`}
               >
                 <MdOutlineArticle className="text-xl" />
                 {isSidebarOpen && <span>Berita</span>}
@@ -76,7 +91,10 @@ const Sidebar = ({ children }) => {
             <li>
               <Link
                 to="/admin/about"
-                className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
+                onClick={() => handleMenuClick("about")}
+                className={`flex items-center space-x-4 p-3 rounded-md transition-all ${
+                  activeMenu === "about" ? "bg-gray-700" : "hover:bg-gray-700"
+                }`}
               >
                 <AiOutlineInfoCircle className="text-xl" />
                 {isSidebarOpen && <span>About</span>}
@@ -85,7 +103,10 @@ const Sidebar = ({ children }) => {
             <li>
               <Link
                 to="/admin/settings"
-                className="flex items-center space-x-4 hover:bg-gray-700 p-3 rounded-md transition-all"
+                onClick={() => handleMenuClick("settings")}
+                className={`flex items-center space-x-4 p-3 rounded-md transition-all ${
+                  activeMenu === "settings" ? "bg-gray-700" : "hover:bg-gray-700"
+                }`}
               >
                 <FaCog className="text-xl" />
                 {isSidebarOpen && <span>Settings</span>}
